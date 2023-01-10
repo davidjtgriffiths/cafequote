@@ -16,15 +16,22 @@
                 Edit
             </RouterLink>
             <a
-                @click.prevent="storeLeads.deleteLead(lead.id)"
+                @click.prevent="modals.deleteLead = true"
                 href="#"
                 class="card-footer-item">Delete</a
             >
         </footer>
+        <ModalDeleteLead
+            v-if="modals.deleteLead"
+            v-model="modals.deleteLead"
+            :leadId="lead.id"
+        />
     </div>
 </template>
 
 <script setup>
+    import { reactive } from 'vue'
+    import ModalDeleteLead from '@/components/Leads/ModalDeleteLead.vue';
     import { useStoreLeads } from '@/stores/StoreLeads'
 
     const storeLeads = useStoreLeads()
@@ -37,5 +44,9 @@
     })
 
     const emit = defineEmits(['deleteClicked'])
+
+    const modals = reactive({
+        deleteLead: false
+    })
 
 </script>

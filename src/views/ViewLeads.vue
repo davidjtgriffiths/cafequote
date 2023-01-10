@@ -15,6 +15,7 @@
         </template>
     </AddEditLead>
 
+    <!-- this should be the bulma table -->
     <Lead
         v-for="lead in storeLeads.leads"
         :key="lead.id"

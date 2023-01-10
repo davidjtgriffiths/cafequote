@@ -1,36 +1,50 @@
 import { defineStore } from 'pinia'
+import { collection, onSnapshot, setDoc, doc, deleteDoc, updateDoc } from "firebase/firestore";
+import { db } from '@/js/firebase.js'
+
+const leadsCollectionRef = collection(db, "leads")
 
 export const useStoreLeads = defineStore('storeLeads', {
   state: () => {
     return {
         leads: [
-            {
-                id: 'id1',
-                name: 'Bob'
-            },
-            {
-                id: 'id2',
-                name: 'Jon'
-            },
-            {
-                id: 'id3',
-                name: 'Rik'
-            }
         ]
     }
   },
   actions: {
-    addLead(newLead) {
-        let id = new Date().getTime().toString()
-        let lead = {
-            id: id,
-            name: newLead
-        }
+    async getLeads() {
+    onSnapshot(leadsCollectionRef, (querySnapshot) => {
+        let leads = []
+        querySnapshot.forEach((doc) => {
+            let lead = {
+                id: doc.id,
+                name: doc.data().name
+            }
+            leads.push(lead)
+        })
+        this.leads = leads
+    })
 
-        this.leads.unshift(lead)
     },
-    deleteLead(id) {
-        this.leads = this.leads.filter(lead => { return lead.id !== id })
+    async addLead(newLead) {
+        let id = new Date().getTime().toString()
+        await setDoc(doc(leadsCollectionRef, id), {
+            name: newLead
+          });
+
+    },
+    async deleteLead(id) {
+        // this.leads = this.leads.filter(lead => { return lead.id !== id })
+        await deleteDoc(doc(leadsCollectionRef, id));
+    },
+    async updateLead(id, name) {
+        // let index = this.leads.findIndex(lead => {return lead.id === id})
+        // this.leads[index].name = name
+        console.log('name',name.value)
+        await updateDoc(doc(leadsCollectionRef, id), {
+            name: name.value,
+            edited: 'true'
+          });
     },
   },
   getters: {

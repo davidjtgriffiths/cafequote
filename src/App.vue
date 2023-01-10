@@ -6,7 +6,16 @@
 </template>
 
 <script setup>
+    import { onMounted } from 'vue';
     import NavBar from '@/components/Layout/NavBar.vue'
+    import { useStoreLeads } from '@/stores/StoreLeads.js'
+
+
+    const storeLeads = useStoreLeads()
+
+    onMounted(() => {
+        storeLeads.getLeads()
+    })
 </script>
 
 <style>
