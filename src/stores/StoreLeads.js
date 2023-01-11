@@ -1,8 +1,11 @@
 import { defineStore } from 'pinia'
-import { collection, onSnapshot, setDoc, doc, deleteDoc, updateDoc } from "firebase/firestore";
+import { collection, onSnapshot, setDoc, doc, addDoc, deleteDoc, updateDoc } from "firebase/firestore";
 import { db } from '@/js/firebase.js'
+import { query, orderBy, limit } from "firebase/firestore";
 
 const leadsCollectionRef = collection(db, "leads")
+const leadsCollectionQuery = query(leadsCollectionRef, orderBy("date", 'desc'));
+
 
 export const useStoreLeads = defineStore('storeLeads', {
   state: () => {
@@ -13,12 +16,13 @@ export const useStoreLeads = defineStore('storeLeads', {
   },
   actions: {
     async getLeads() {
-    onSnapshot(leadsCollectionRef, (querySnapshot) => {
+    onSnapshot(leadsCollectionQuery, (querySnapshot) => {
         let leads = []
         querySnapshot.forEach((doc) => {
             let lead = {
                 id: doc.id,
-                name: doc.data().name
+                name: doc.data().name,
+                date: doc.data().date
             }
             leads.push(lead)
         })
@@ -27,10 +31,12 @@ export const useStoreLeads = defineStore('storeLeads', {
 
     },
     async addLead(newLead) {
-        let id = new Date().getTime().toString()
-        await setDoc(doc(leadsCollectionRef, id), {
-            name: newLead
-          });
+        let date = new Date().getTime().toString()
+
+        await addDoc(leadsCollectionRef, {
+            name: newLead,
+            date: date
+        });
 
     },
     async deleteLead(id) {
@@ -45,6 +51,7 @@ export const useStoreLeads = defineStore('storeLeads', {
             name: name.value,
             edited: 'true'
           });
+        //   if the field dont exist it wont be added
     },
   },
   getters: {

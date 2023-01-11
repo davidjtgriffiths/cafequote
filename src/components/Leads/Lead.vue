@@ -5,6 +5,9 @@
         <div class="card-content">
             <div class="content">
                 {{ lead.name }}
+                <div class="has-text-right mt-2">
+                    <small>Date {{ dateFormatted }}</small>
+                </div>
             </div>
         </div>
         <footer class="card-footer">
@@ -30,11 +33,17 @@
 </template>
 
 <script setup>
-    import { reactive } from 'vue'
+    import { reactive, computed } from 'vue'
     import ModalDeleteLead from '@/components/Leads/ModalDeleteLead.vue';
     import { useStoreLeads } from '@/stores/StoreLeads'
+    import { useDateFormat } from '@vueuse/core';
 
     const storeLeads = useStoreLeads()
+
+    const dateFormatted = computed(() => {
+        let date = new Date(parseInt(props.lead.date))
+        return useDateFormat(date, 'YYYY-MM-DD HH:mm:ss')
+    })
 
     const props = defineProps({
         lead: {
