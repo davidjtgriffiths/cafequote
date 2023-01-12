@@ -8,13 +8,13 @@
 <script setup>
     import { onMounted } from 'vue';
     import NavBar from '@/components/Layout/NavBar.vue'
-    import { useStoreLeads } from '@/stores/StoreLeads.js'
+    import { useStoreAuth } from '@/stores/StoreAuth.js'
 
 
-    const storeLeads = useStoreLeads()
+    const storeAuth = useStoreAuth()
 
     onMounted(() => {
-        storeLeads.getLeads()
+        storeAuth.init()
     })
 </script>
 

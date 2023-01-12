@@ -2,9 +2,12 @@ import { defineStore } from 'pinia'
 import { collection, onSnapshot, setDoc, doc, addDoc, deleteDoc, updateDoc } from "firebase/firestore";
 import { db } from '@/js/firebase.js'
 import { query, orderBy, limit } from "firebase/firestore";
+import { useStoreAuth } from '@/stores/StoreAuth.js'
 
-const leadsCollectionRef = collection(db, "leads")
-const leadsCollectionQuery = query(leadsCollectionRef, orderBy("date", 'desc'));
+let leadsCollectionRef
+let leadsCollectionQuery
+
+let getLeadsSnapshot = null
 
 
 export const useStoreLeads = defineStore('storeLeads', {
@@ -15,8 +18,19 @@ export const useStoreLeads = defineStore('storeLeads', {
     }
   },
   actions: {
+    init() {
+        const storeAuth = useStoreAuth()
+        leadsCollectionRef = collection(db, "users", storeAuth.user.id, "leads")
+        leadsCollectionQuery = query(leadsCollectionRef, orderBy("date", 'desc'));
+        this.getLeads()
+    },
     async getLeads() {
-    onSnapshot(leadsCollectionQuery, (querySnapshot) => {
+
+        if (getLeadsSnapshot) {
+            getLeadsSnapshot() // Unsubscribe device from any active listeners (Other logged in users)
+        }
+
+        getLeadsSnapshot = onSnapshot(leadsCollectionQuery, (querySnapshot) => {
         let leads = []
         querySnapshot.forEach((doc) => {
             let lead = {
@@ -28,7 +42,9 @@ export const useStoreLeads = defineStore('storeLeads', {
         })
         this.leads = leads
     })
-
+    },
+    clearLeads() {
+        this.leads = {}
     },
     async addLead(newLead) {
         let date = new Date().getTime().toString()

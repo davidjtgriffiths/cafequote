@@ -42,7 +42,7 @@
 
     const dateFormatted = computed(() => {
         let date = new Date(parseInt(props.lead.date))
-        return useDateFormat(date, 'YYYY-MM-DD HH:mm:ss')
+        return useDateFormat(date, 'YYYY-MM-DD HH:mm:ss').value
     })
 
     const props = defineProps({

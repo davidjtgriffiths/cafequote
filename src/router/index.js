@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import ViewLeads from '@/views/ViewLeads.vue'
 import ViewEditLead from '@/views/ViewEditLead.vue'
 import ViewQuotes from '@/views/ViewQuotes.vue'
+import ViewAuth from '@/views/ViewAuth.vue'
 
 const routes = [
     {
@@ -18,6 +19,11 @@ const routes = [
         path: '/quotes',
         name: 'quotes',
         component: ViewQuotes
+    },
+    {
+        path: '/auth',
+        name: 'auth',
+        component: ViewAuth
     }
 ]
 
