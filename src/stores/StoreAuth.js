@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { auth } from '@/js/firebase'
 import { getAuth, signOut, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { useStoreLeads } from '@/stores/StoreLeads.js'
+import { useStoreQuotes } from '@/stores/StoreQuotes.js'
 
 
 
@@ -17,6 +18,7 @@ export const useStoreAuth = defineStore('storeAuth', {
   actions: {
     init() {
         const storeLeads = useStoreLeads()
+        const storeQuotes = useStoreQuotes()
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -28,6 +30,7 @@ export const useStoreAuth = defineStore('storeAuth', {
               this.user.email = user.email
               this.router.push('/')
               storeLeads.init()
+              storeQuotes.init()
               // ...
             } else {
               // User is signed out
@@ -35,6 +38,7 @@ export const useStoreAuth = defineStore('storeAuth', {
               this.user = {}
               this.router.replace('/auth')
               storeLeads.clearLeads()
+              storeQuotes.clearQuotes()
             }
           });
     },

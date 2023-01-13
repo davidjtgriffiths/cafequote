@@ -1,8 +1,9 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import ViewLeads from '@/views/ViewLeads.vue'
-import ViewEditLead from '@/views/ViewEditLead.vue'
-import ViewQuotes from '@/views/ViewQuotes.vue'
-import ViewAuth from '@/views/ViewAuth.vue'
+import ViewLeads from '@/views/leads/ViewLeads.vue'
+import ViewEditLead from '@/views/leads/ViewEditLead.vue'
+import ViewQuotes from '@/views/quotes/ViewQuotes.vue'
+import ViewEditQuote from '@/views/quotes/ViewEditQuote.vue'
+import ViewAuth from '@/views/auth/ViewAuth.vue'
 import { useStoreAuth } from '@/stores/StoreAuth.js'
 
 const routes = [
@@ -20,6 +21,11 @@ const routes = [
         path: '/quotes',
         name: 'quotes',
         component: ViewQuotes
+    },
+    {
+        path: '/editQuote/:id',
+        name: 'edit-quote',
+        component: ViewEditQuote
     },
     {
         path: '/auth',
@@ -41,6 +47,6 @@ if (!storeAuth.user.id && to.name !== 'auth') {
     return { name: 'auth'}
 }
 if (storeAuth.user.id && to.name == 'auth') {
-    return false 
+    return false
 }
   })

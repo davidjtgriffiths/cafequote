@@ -36,7 +36,7 @@
 
     const handleSavedClicked = () => {
         storeLeads.updateLead(route.params.id, lead)
-        router.push('/')
+        router.back()
     }
 
 </script>
