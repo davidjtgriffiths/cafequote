@@ -3,6 +3,7 @@ import ViewLeads from '@/views/ViewLeads.vue'
 import ViewEditLead from '@/views/ViewEditLead.vue'
 import ViewQuotes from '@/views/ViewQuotes.vue'
 import ViewAuth from '@/views/ViewAuth.vue'
+import { useStoreAuth } from '@/stores/StoreAuth.js'
 
 const routes = [
     {
@@ -33,3 +34,13 @@ const router = createRouter({
 })
 
 export default router
+
+router.beforeEach(async (to, from) => {
+    const storeAuth = useStoreAuth()
+if (!storeAuth.user.id && to.name !== 'auth') {
+    return { name: 'auth'}
+}
+if (storeAuth.user.id && to.name == 'auth') {
+    return false 
+}
+  })

@@ -41,6 +41,7 @@ export const useStoreLeads = defineStore('storeLeads', {
             leads.push(lead)
         })
         this.leads = leads
+    }, error => { console.log(error.message) 
     })
     },
     clearLeads() {
