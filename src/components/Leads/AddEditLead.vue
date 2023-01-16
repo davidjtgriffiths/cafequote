@@ -12,14 +12,23 @@
         <div class="field">
             <div class="control">
                 <textarea
-                    :value="modelValue"
-                    @input="$emit('update:modelValue', $event.target.value)"
+                    :value="firstName"
+                    @input="$emit('update:firstName', $event.target.value)"
                     class="textarea mt-4"
-                    placeholder="Textarea"
+                    placeholder="First Name"
                     ref="textareaRef"
                 >
                 </textarea>
-
+            </div>
+            <div class="control">
+                <textarea
+                    :value="lastName"
+                    @input="$emit('update:lastName', $event.target.value)"
+                    class="textarea mt-4"
+                    placeholder="Last Name"
+                    ref="lastNameRef"
+                >
+                </textarea>
             </div>
         </div>
 
@@ -39,7 +48,11 @@
     const textareaRef = ref(null)
 
     const props = defineProps({
-        modelValue: {
+        firstName: {
+            type: String,
+            required: true
+        },
+        lastName: {
             type: String,
             required: true
         },
@@ -48,7 +61,10 @@
         }
     })
 
-    const emit = defineEmits(['update:modelValue'])
+    const emit = defineEmits([
+        'update:firstName',
+        'update:lastName'
+    ])
 
     const focusTextArea = () => {
         textareaRef.value.focus()

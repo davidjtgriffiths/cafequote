@@ -4,7 +4,8 @@
     >
         <div class="card-content">
             <div class="content">
-                {{ lead.name }}
+                <div>{{ lead.firstName }}</div>
+                <div>{{ lead.lastName }}</div>
                 <div class="has-text-right mt-2">
                     <small>Date {{ dateFormatted }}</small>
                 </div>
@@ -46,6 +47,7 @@
     import { useDateFormat } from '@vueuse/core';
     import AddEditQuote from '../Quotes/AddEditQuote.vue';
     import { useRoute, useRouter } from 'vue-router'
+    import ViewLeads from '../../views/leads/ViewLeads.vue';
 
     const storeLeads = useStoreLeads()
     const storeQuotes = useStoreQuotes()
@@ -69,6 +71,7 @@
         deleteLead: false
     })
 
+    // this should poss go in module or ViewLeads.vue
     const gotoQuote = async (leadId) => {
         console.log('find or create quote')
         let quote = {}

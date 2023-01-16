@@ -35,13 +35,14 @@ export const useStoreLeads = defineStore('storeLeads', {
         querySnapshot.forEach((doc) => {
             let lead = {
                 id: doc.id,
-                name: doc.data().name,
+                firstName: doc.data().firstName,
+                lastName: doc.data().lastName,
                 date: doc.data().date
             }
             leads.push(lead)
         })
         this.leads = leads
-    }, error => { console.log(error.message) 
+    }, error => { console.log(error.message)
     })
     },
     clearLeads() {
@@ -49,9 +50,10 @@ export const useStoreLeads = defineStore('storeLeads', {
     },
     async addLead(newLead) {
         let date = new Date().getTime().toString()
-
+console.log('trying to add new lead',newLead)
         await addDoc(leadsCollectionRef, {
-            name: newLead,
+            firstName: newLead.firstName,
+            lastName: newLead.lastName,
             date: date
         });
 
@@ -60,12 +62,13 @@ export const useStoreLeads = defineStore('storeLeads', {
         // this.leads = this.leads.filter(lead => { return lead.id !== id })
         await deleteDoc(doc(leadsCollectionRef, id));
     },
-    async updateLead(id, name) {
+    async updateLead(id, lead) {
         // let index = this.leads.findIndex(lead => {return lead.id === id})
         // this.leads[index].name = name
-        console.log('name',name.value)
+        console.log('lead to update',lead)
         await updateDoc(doc(leadsCollectionRef, id), {
-            name: name.value,
+            firstName: lead.firstName,
+            lastName: lead.lastName,
             edited: 'true'
           });
         //   if the field dont exist it wont be added
@@ -74,7 +77,7 @@ export const useStoreLeads = defineStore('storeLeads', {
   getters: {
     getLead: (state) => {
         return (id) => {
-            return state.leads.filter(lead => { return lead.id === id })[0].name
+            return state.leads.filter(lead => { return lead.id === id })[0]
         }
     }
   }
