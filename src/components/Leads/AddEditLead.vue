@@ -1,6 +1,6 @@
 <template>
 
-    <div class="card has-background-link-dark p-4 mb-5" >
+    <div class="card has-background-info-dark p-4 mb-5" >
 
         <label
             v-if="label"

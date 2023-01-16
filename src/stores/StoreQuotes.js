@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { collection, onSnapshot, setDoc, doc, addDoc, deleteDoc, updateDoc } from "firebase/firestore";
+import { collection, onSnapshot, setDoc, getDoc, doc, addDoc, deleteDoc, updateDoc } from "firebase/firestore";
 import { db } from '@/js/firebase.js'
 import { query, orderBy, limit } from "firebase/firestore";
 import { useStoreAuth } from '@/stores/StoreAuth.js'
@@ -16,7 +16,6 @@ export const useStoreQuotes = defineStore('storeQuotes', {
             ]
         }
     },
-    // TODO: Done to here
   actions: {
     init() {
         const storeAuth = useStoreAuth()
@@ -36,7 +35,8 @@ export const useStoreQuotes = defineStore('storeQuotes', {
             let quote = {
                 id: doc.id,
                 name: doc.data().name,
-                date: doc.data().date
+                date: doc.data().date,
+                leadId: doc.data().leadId
             }
             quotes.push(quote)
         })
@@ -47,13 +47,15 @@ export const useStoreQuotes = defineStore('storeQuotes', {
     clearQuotes() {
         this.quotes = {}
     },
-    async addQuote(newQuote) {
+    async addQuote(newQuote, leadId) {
         let date = new Date().getTime().toString()
 
         await addDoc(quotesCollectionRef, {
-            name: newQuote,
-            date: date
+            name: `quote from lead ${newQuote}`,
+            date: date,
+            leadId: leadId
         });
+        console.log('creating new quote ', newQuote)
 
     },
     async deleteQuote(id) {
@@ -71,7 +73,19 @@ export const useStoreQuotes = defineStore('storeQuotes', {
   getters: {
     getQuote: (state) => {
         return (id) => {
-            return state.quotes.filter(quote => { return quote.id === id })[0].name
+            return state.quotes.filter(quote => { return quote.id === id })[0]
+        }
+    },
+    getQuoteFromLeadId: (state) => {
+        return (id) => {
+            if (state.quotes.filter(quote => { return quote.leadId === id })[0]) {
+                return state.quotes.filter(quote => { return quote.leadId === id })[0].id
+
+
+            }
+            else {
+                return null
+            }
         }
     }
   }
