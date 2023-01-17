@@ -4,7 +4,12 @@
     >
         <div class="card-content">
             <div class="content">
-                {{ quote.name }}
+                <div>
+                    {{ quote.firstField }}
+                </div>
+                <div>
+                    {{ quote.secondField }}
+                </div>
                 <div class="has-text-right mt-2">
                     <small>Date {{ dateFormatted }}</small>
                 </div>
@@ -37,6 +42,7 @@
     import ModalDeleteQuote from '@/components/Quotes/ModalDeleteQuote.vue';
     import { useStoreQuotes } from '@/stores/StoreQuotes'
     import { useDateFormat } from '@vueuse/core';
+    import ViewQuotes from '@/views/quotes/ViewQuotes.vue';
 
     const storeQuotes = useStoreQuotes()
 

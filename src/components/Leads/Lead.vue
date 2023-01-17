@@ -74,14 +74,15 @@
     // this should poss go in module or ViewLeads.vue
     const gotoQuote = async (leadId) => {
         console.log('find or create quote')
-        let quote = {}
+        let quote = null
         // Find quote in storeQuotes
         quote = storeQuotes.getQuoteFromLeadId(leadId)
-        console.log('found quote', quote)
+        console.log('found quote in gotoQuote', quote)
         // If no quote, create one - IN THE STORE but dont wait for firebase
         // But I do need to wait for firebase because i need quiteid to edit it!!!
         if (!quote) {
-            let x = await storeQuotes.addQuote('', leadId)
+            let x = await storeQuotes.addQuote(quote, leadId)
+            //TODO:not getting past here when click quote on lead w/ no quote
             console.log('x', x)
         }
         //get Quote by lead id
