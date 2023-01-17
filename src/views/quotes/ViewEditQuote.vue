@@ -1,6 +1,7 @@
 <template>
     <AddEditQuote
-        v-model="quote"
+        v-model:first-field="quote.firstField"
+        v-model:second-field="quote.secondField"
         label="Editing Quote"
         ref="addEditQuoteRef"
     >
@@ -27,12 +28,12 @@
     import AddEditQuote from '@/components/Quotes/AddEditQuote.vue'
     import { useStoreQuotes } from '@/stores/StoreQuotes'
 
-    const quote = ref('')
+    let quote = ref({})
     const storeQuotes = useStoreQuotes()
     const route = useRoute()
     const router = useRouter()
 
-    quote.value = storeQuotes.getQuote(route.params.id)
+    quote = storeQuotes.getQuote(route.params.id)
 
     const handleSavedClicked = () => {
         storeQuotes.updateQuote(route.params.id, quote)

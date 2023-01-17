@@ -1,7 +1,8 @@
 <template>
 
     <AddEditQuote
-        v-model="newQuote"
+        v-model:first-field="newQuote.firstField"
+        v-model:second-field="newQuote.secondField"
         ref="addEditQuoteRef"
     >
         <template #buttons>
@@ -25,18 +26,22 @@
 </template>
 
 <script setup>
-    import { normalizeStyle, ref } from 'vue'
+    import { normalizeStyle, ref, reactive } from 'vue'
     import Quote from '@/components/Quotes/Quote.vue'
     import AddEditQuote from '@/components/Quotes/AddEditQuote.vue'
     import { useStoreQuotes } from '@/stores/StoreQuotes'
 
-    const newQuote = ref('')
+    const newQuote = reactive({
+        firstField: '',
+        secondField: ''
+    })
     const addEditQuoteRef = ref(null)
     const storeQuotes = useStoreQuotes()
 
     const addQuote = () => {
-        storeQuotes.addQuote(newQuote.value)
-        newQuote.value = ''
+        console.log('new quote to store', newQuote)
+        storeQuotes.addQuote(newQuote)
+        newQuote.value = {}
         addEditQuoteRef.value.focusTextArea()
     }
 

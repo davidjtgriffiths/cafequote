@@ -34,7 +34,8 @@ export const useStoreQuotes = defineStore('storeQuotes', {
         querySnapshot.forEach((doc) => {
             let quote = {
                 id: doc.id,
-                name: doc.data().name,
+                firstField: doc.data().firstField,
+                secondField: doc.data().secondField,
                 date: doc.data().date,
                 leadId: doc.data().leadId
             }
@@ -49,11 +50,12 @@ export const useStoreQuotes = defineStore('storeQuotes', {
     },
     async addQuote(newQuote, leadId) {
         let date = new Date().getTime().toString()
-
+console.log('addDoc in addQuote', )
         await addDoc(quotesCollectionRef, {
-            name: `quote from lead ${newQuote}`,
+            firstField: newQuote ? newQuote.firstField : 'blank',
+            secondField: newQuote ? newQuote.secondField : 'blank2',
             date: date,
-            leadId: leadId
+            leadId: leadId ? leadId : null
         });
         console.log('creating new quote ', newQuote)
 
@@ -61,10 +63,11 @@ export const useStoreQuotes = defineStore('storeQuotes', {
     async deleteQuote(id) {
         await deleteDoc(doc(quotesCollectionRef, id));
     },
-    async updateQuote(id, name) {
-        console.log('name',name.value)
+    async updateQuote(id, quote) {
+        console.log('quote to update',quote)
         await updateDoc(doc(quotesCollectionRef, id), {
-            name: name.value,
+            firstField: quote.firstField,
+            secondField: quote.secondField,
             edited: 'true'
           });
         //   if the field dont exist it wont be added
