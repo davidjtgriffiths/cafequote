@@ -1,7 +1,8 @@
 <template>
 
     <AddEditLead
-        v-model="newLead"
+        v-model:first-name="newLead.firstName"
+        v-model:last-name="newLead.lastName"
         ref="addEditLeadRef"
     >
         <template #buttons>
@@ -25,18 +26,22 @@
 </template>
 
 <script setup>
-    import { normalizeStyle, ref } from 'vue'
+    import { normalizeStyle, ref, reactive } from 'vue'
     import Lead from '@/components/Leads/Lead.vue'
     import AddEditLead from '@/components/Leads/AddEditLead.vue'
     import { useStoreLeads } from '@/stores/StoreLeads'
 
-    const newLead = ref('')
+    const newLead = reactive({
+        firstName: '',
+        lastName: ''
+    })
     const addEditLeadRef = ref(null)
     const storeLeads = useStoreLeads()
 
     const addLead = () => {
-        storeLeads.addLead(newLead.value)
-        newLead.value = ''
+        console.log('new lead to store', newLead)
+        storeLeads.addLead(newLead)
+        newLead.value = {}
         addEditLeadRef.value.focusTextArea()
     }
 

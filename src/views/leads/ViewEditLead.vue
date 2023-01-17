@@ -1,6 +1,8 @@
 <template>
     <AddEditLead
-        v-model="lead"
+    v-if="lead"
+        v-model:first-name="lead.firstName"
+        v-model:last-name="lead.lastName"
         label="Editing Lead"
         ref="addEditLeadRef"
     >
@@ -27,12 +29,12 @@
     import AddEditLead from '@/components/Leads/AddEditLead.vue'
     import { useStoreLeads } from '@/stores/StoreLeads'
 
-    const lead = ref('')
+    let lead = ref({})
     const storeLeads = useStoreLeads()
     const route = useRoute()
     const router = useRouter()
 
-    lead.value = storeLeads.getLead(route.params.id)
+    lead = storeLeads.getLead(route.params.id)
 
     const handleSavedClicked = () => {
         storeLeads.updateLead(route.params.id, lead)
