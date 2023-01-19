@@ -21,6 +21,13 @@
                 href="#"
                 class="card-footer-item"
             >
+                View Lead
+            </RouterLink>
+            <RouterLink
+                :to="`/editQuote/${ quote.id }`"
+                href="#"
+                class="card-footer-item"
+            >
                 Edit
             </RouterLink>
             <a
