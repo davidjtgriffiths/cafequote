@@ -7,12 +7,13 @@
     >
         <template #buttons>
             <button
-                    @click="addQuote"
-                    :disabled="!newQuote"
-                    class="button is-link has-background-link"
-                >
-                    Save New Quote
-                </button>
+                @click="addQuote"
+                :disabled="!newQuote"
+                class="button is-link has-background-link"
+            >
+                Save New Quote
+            </button>
+
         </template>
     </AddEditQuote>
 
@@ -27,9 +28,13 @@
 
 <script setup>
     import { normalizeStyle, ref, reactive } from 'vue'
+    import { useRoute, useRouter } from 'vue-router'
     import Quote from '@/components/Quotes/Quote.vue'
     import AddEditQuote from '@/components/Quotes/AddEditQuote.vue'
     import { useStoreQuotes } from '@/stores/StoreQuotes'
+
+    const route = useRoute()
+    const router = useRouter()
 
     const newQuote = reactive({
         firstField: '',
@@ -44,9 +49,6 @@
         newQuote.value = {}
         addEditQuoteRef.value.focusTextArea()
     }
-
-
-
 
 
 </script>

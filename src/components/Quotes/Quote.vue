@@ -24,6 +24,13 @@
                 View Lead
             </RouterLink>
             <RouterLink
+                :to="`/PreviewContract/${ quote.id }`"
+                href="#"
+                class="card-footer-item"
+            >
+                Contract
+            </RouterLink>
+            <RouterLink
                 :to="`/editQuote/${ quote.id }`"
                 href="#"
                 class="card-footer-item"

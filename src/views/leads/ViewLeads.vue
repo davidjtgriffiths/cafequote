@@ -7,12 +7,12 @@
     >
         <template #buttons>
             <button
-                    @click="addLead"
-                    :disabled="!newLead"
-                    class="button is-link has-background-link"
-                >
-                    Save New Lead
-                </button>
+                @click="addLead"
+                :disabled="!newLead"
+                class="button is-link has-background-link"
+            >
+                Save New Lead
+            </button>
         </template>
     </AddEditLead>
 
@@ -31,6 +31,8 @@
     import AddEditLead from '@/components/Leads/AddEditLead.vue'
     import { useStoreLeads } from '@/stores/StoreLeads'
 
+
+
     const newLead = reactive({
         firstName: '',
         lastName: ''
@@ -44,6 +46,8 @@
         newLead.value = {}
         addEditLeadRef.value.focusTextArea()
     }
+
+
 
 
 
