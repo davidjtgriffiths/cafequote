@@ -59,6 +59,14 @@
                 >
                     Quote
                 </RouterLink>
+                <RouterLink
+                    @click="showMobileNav = false"
+                    to="/sysVars"
+                    class="navbar-item"
+                    active-class="is-active"
+                >
+                    System Variables
+                </RouterLink>
 
             <!-- <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
