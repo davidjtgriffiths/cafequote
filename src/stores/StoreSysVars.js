@@ -82,6 +82,12 @@ console.log('trying to add new sysVar', newSysVar)
         return (id) => {
             return state.sysVars.filter(sysVar => { return sysVar.id === id })[0]
         }
+    },
+    getSysVarByName: (state) => {
+        return (varName) => {
+            console.log('looking for ',varName)
+            return state.sysVars.filter(sysVar => { return sysVar.var === varName })[0]
+        }
     }
   }
 
