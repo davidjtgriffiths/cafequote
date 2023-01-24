@@ -6,7 +6,7 @@
         ref="modalCardRef"
     >
         <header class="modal-card-head">
-        <p class="modal-card-title">Delete Lead</p>
+        <p class="modal-card-title">Delete SysVar</p>
         <button
             @click="closeModal"
             class="delete"
@@ -15,7 +15,7 @@
         </button>
         </header>
         <section class="modal-card-body">
-        Are you sure you want to delete this lead?
+        Are you sure you want to delete this sysVar?
         </section>
         <footer class="modal-card-foot is-justify-content-flex-end">
         <button
@@ -25,7 +25,7 @@
             Cancel
         </button>
         <button
-            @click="storeLeads.deleteLead(leadId)"
+            @click="storeSysVars.deleteSysVar(sysVarId)"
             class="button is-danger"
         >
             Delete
@@ -39,7 +39,7 @@
 
     import { ref } from 'vue'
     import { onClickOutside } from '@vueuse/core'
-    import { useStoreLeads } from '@/stores/StoreLeads'
+    import { useStoreSysVars } from '@/stores/StoreSysVars'
 
 
     const props = defineProps({
@@ -47,7 +47,7 @@
             type: Boolean,
             default: false
         },
-        leadId: {
+        sysVarId: {
             type: String,
             required: true
         }
@@ -64,6 +64,6 @@
     const modalCardRef = ref(null)
     onClickOutside(modalCardRef, closeModal)
 
-    const storeLeads = useStoreLeads()
+    const storeSysVars = useStoreSysVars()
 
 </script>

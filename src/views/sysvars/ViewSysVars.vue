@@ -1,50 +1,50 @@
 <template>
 
-    <AddEditLead
-        v-model:first-name="newLead.firstName"
-        v-model:last-name="newLead.lastName"
-        ref="addEditLeadRef"
+    <AddEditSysVar
+        v-model:var="newSysVar.var"
+        v-model:val="newSysVar.val"
+        ref="addEditSysVarRef"
     >
         <template #buttons>
             <button
-                @click="addLead"
-                :disabled="!newLead"
+                @click="addSysVar"
+                :disabled="!newSysVar"
                 class="button is-link has-background-link"
             >
-                Save New Lead
+                Save New SysVar
             </button>
         </template>
-    </AddEditLead>
+    </AddEditSysVar>
 
     <!-- this should be the bulma table -->
-    <Lead
-        v-for="lead in storeLeads.leads"
-        :key="lead.id"
-        :lead="lead"
+    <SysVar
+        v-for="sysVar in storeSysVars.sysVars"
+        :key="sysVar.id"
+        :sysVar="sysVar"
     />
 
 </template>
 
 <script setup>
     import { normalizeStyle, ref, reactive } from 'vue'
-    import Lead from '@/components/Leads/Lead.vue'
-    import AddEditLead from '@/components/Leads/AddEditLead.vue'
-    import { useStoreLeads } from '@/stores/StoreLeads'
+    import SysVar from '@/components/Sysvars/SysVar.vue'
+    import AddEditSysVar from '@/components/Sysvars/AddEditSysVar.vue'
+    import { useStoreSysVars } from '@/stores/StoreSysVars'
 
 
 
-    const newLead = reactive({
-        firstName: '',
-        lastName: ''
+    const newSysVar = reactive({
+        var: '',
+        val: ''
     })
-    const addEditLeadRef = ref(null)
-    const storeLeads = useStoreLeads()
+    const addEditSysVarRef = ref(null)
+    const storeSysVars = useStoreSysVars()
 
-    const addLead = () => {
-        console.log('new lead to store', newLead)
-        storeLeads.addLead(newLead)
-        newLead.value = {}
-        addEditLeadRef.value.focusTextArea()
+    const addSysVar = () => {
+        console.log('new sysVar to store', newSysVar)
+        storeSysVars.addSysVar(newSysVar)
+        newSysVar.value = {}
+        addEditSysVarRef.value.focusTextArea()
     }
 
 

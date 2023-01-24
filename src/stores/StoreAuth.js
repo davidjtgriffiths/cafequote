@@ -3,6 +3,7 @@ import { auth } from '@/js/firebase'
 import { getAuth, signOut, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { useStoreLeads } from '@/stores/StoreLeads.js'
 import { useStoreQuotes } from '@/stores/StoreQuotes.js'
+import { useStoreSysVars } from '@/stores/StoreSysVars.js'
 
 
 
@@ -19,6 +20,7 @@ export const useStoreAuth = defineStore('storeAuth', {
     init() {
         const storeLeads = useStoreLeads()
         const storeQuotes = useStoreQuotes()
+        const storeSysVars = useStoreSysVars()
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -31,6 +33,7 @@ export const useStoreAuth = defineStore('storeAuth', {
               this.router.push('/')
               storeLeads.init()
               storeQuotes.init()
+              storeSysVars.init()
               // ...
             } else {
               // User is signed out
