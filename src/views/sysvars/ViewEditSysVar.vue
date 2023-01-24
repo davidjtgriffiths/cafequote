@@ -1,10 +1,10 @@
 <template>
-    <AddEditSysVar
-    v-if="sysVar"
-        v-model:first-name="sysVar.firstName"
-        v-model:last-name="sysVar.lastName"
-        label="Editing SysVar"
-        ref="addEditSysVarRef"
+    <AddEditLead
+    v-if="lead"
+        v-model:first-name="lead.firstName"
+        v-model:last-name="lead.lastName"
+        label="Editing Lead"
+        ref="addEditLeadRef"
     >
         <template #buttons>
             <button
@@ -20,24 +20,24 @@
                 Save Changes
             </button>
         </template>
-    </AddEditSysVar>
+    </AddEditLead>
 </template>
 
 <script setup>
     import { ref } from 'vue'
     import { useRoute, useRouter } from 'vue-router'
-    import AddEditSysVar from '@/components/sysVars/AddEditSysVar.vue'
-    import { useStoreSysVars } from '@/stores/StoreSysVars'
+    import AddEditLead from '@/components/Leads/AddEditLead.vue'
+    import { useStoreLeads } from '@/stores/StoreLeads'
 
-    let sysVar = ref({})
-    const storeSysVars = useStoreSysVars()
+    let lead = ref({})
+    const storeLeads = useStoreLeads()
     const route = useRoute()
     const router = useRouter()
 
-    sysVar = storeSysVars.getSysVar(route.params.id)
+    lead = storeLeads.getLead(route.params.id)
 
     const handleSavedClicked = () => {
-        storeSysVars.updateSysVar(route.params.id, sysVar)
+        storeLeads.updateLead(route.params.id, lead)
         router.back()
     }
 

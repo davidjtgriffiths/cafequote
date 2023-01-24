@@ -3,8 +3,8 @@ import ViewLeads from '@/views/leads/ViewLeads.vue'
 import ViewEditLead from '@/views/leads/ViewEditLead.vue'
 import ViewQuotes from '@/views/quotes/ViewQuotes.vue'
 import ViewEditQuote from '@/views/quotes/ViewEditQuote.vue'
-import ViewSysVars from '@/views/SysVars/ViewSysVars.vue'
-import ViewEditSysVar from '@/views/SysVars/ViewEditSysVar.vue'
+import ViewSysVars from '@/views/sysvars/ViewSysVars.vue'
+import ViewEditSysVar from '@/views/sysvars/ViewEditSysVar.vue'
 import PreviewContract from '@/views/quotes/PreviewContract.vue'
 import ViewAuth from '@/views/auth/ViewAuth.vue'
 import { useStoreAuth } from '@/stores/StoreAuth.js'
@@ -32,12 +32,12 @@ const routes = [
     },
     {
         path: '/sysvars',
-        name: 'sysVars',
+        name: 'sysvars',
         component: ViewSysVars
     },
     {
-        path: '/editSysVar/:id',
-        name: 'edit-sysVar',
+        path: '/editsysvar/:id',
+        name: 'edit-sysvar',
         component: ViewEditSysVar
     },
     {

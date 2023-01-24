@@ -61,7 +61,7 @@
                 </RouterLink>
                 <RouterLink
                     @click="showMobileNav = false"
-                    to="/sysVars"
+                    to="/sysvars"
                     class="navbar-item"
                     active-class="is-active"
                 >
