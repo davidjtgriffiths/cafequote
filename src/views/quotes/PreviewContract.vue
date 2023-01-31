@@ -1,7 +1,7 @@
 <template>
 <h1>preview of contract </h1>
-<h2>quote</h2>
-<p>{{ quote }}</p>
+<h2>buildQuote</h2>
+<p>{{ buildQuote }}</p>
 <h2>lead</h2>
 <p>{{ lead }}</p>
 <button
@@ -60,7 +60,7 @@ import { defineComponent } from 'vue';
     const storeLeads = useStoreLeads()
     const storeSysVars = useStoreSysVars()
 
-    const oldquote = storeQuotes.getQuote(route.params.id)
+    const quote = storeQuotes.getQuote(route.params.id)
     const lead = storeLeads.getLead(quote.leadId)
 
     let varVal = ref(null)
@@ -97,105 +97,105 @@ const brand = ref()
 const model = ref()
 const plumbing = ref()
 
-let quote = reactive (
+let buildQuote = reactive (
     {
     "machine": {
       "model": "xx",
       "variant": "",
-      "rrPrice": 0,
-      "wsPrice": 0,
-      "profit": 0
+      "rrp": 0,
+      "wsp": 0,
+      "net": 0
     },
     "waterOption": {
       "description": "",
       "variant": "",
-      "rrPrice": 0,
-      "wsPrice": 0,
-      "profit": 0
+      "rrp": 0,
+      "wsp": 0,
+      "net": 0
     },
     "warranty": {
       "term": "",
       "cover": "",
-      "rrPrice": 0,
-      "wsPrice": 0,
-      "profit": 0
+      "rrp": 0,
+      "wsp": 0,
+      "net": 0
     },
     "cardMachine": {
       "package": "0",
       "variant": "",
-      "rrPrice": 0,
-      "wsPrice": 0,
-      "profit": 0
+      "rrp": 0,
+      "wsp": 0,
+      "net": 0
     },
     "marketing": {
       "package": "0",
       "variant": "",
-      "rrPrice": 0,
-      "wsPrice": 0,
-      "profit": 0
+      "rrp": 0,
+      "wsp": 0,
+      "net": 0
     },
     "merchandising": {
       "package": "0",
       "variant": "",
-      "rrPrice": 0,
-      "wsPrice": 0,
-      "profit": 0
+      "rrp": 0,
+      "wsp": 0,
+      "net": 0
     },
     "drinkPack": {
       "package": "0",
       "variant": "",
-      "rrPrice": 0,
-      "wsPrice": 0,
-      "profit": 0
+      "rrp": 0,
+      "wsp": 0,
+      "net": 0
     },
     "subTotal": {
       "model": "",
       "variant": "",
-      "rrPrice": 0,
-      "wsPrice": 0,
-      "profit": 0
+      "rrp": 0,
+      "wsp": 0,
+      "net": 0
     },
     "discount": {
       "percentage": 0,
       "variant": "",
-      "rrPrice": 0,
-      "wsPrice": 0,
-      "profit": 0
+      "rrp": 0,
+      "wsp": 0,
+      "net": 0
     },
     "additions": {
       "model": "",
       "variant": "",
-      "rrPrice": 0,
-      "wsPrice": 0,
-      "profit": 0
+      "rrp": 0,
+      "wsp": 0,
+      "net": 0
     },
     "total": {
       "model": "",
       "variant": "",
-      "rrPrice": 0,
-      "wsPrice": 0,
-      "profit": 0
+      "rrp": 0,
+      "wsp": 0,
+      "net": 0
     },
     "finance": {
       "model": "",
       "variant": "",
-      "rrPrice": 0,
-      "wsPrice": 0,
-      "profit": 0
+      "rrp": 0,
+      "wsp": 0,
+      "net": 0
     },
     "financeFee": {
       "fee": "",
       "variant": "",
-      "rrPrice": 0,
-      "wsPrice": 0,
-      "profit": 0
+      "rrp": 0,
+      "wsp": 0,
+      "net": 0
     },
     "finalPrice": {
       "model": "",
       "variant": "",
-      "rrPrice": 0,
-      "wsPrice": 0,
-      "profit": 0
+      "rrp": 0,
+      "wsp": 0,
+      "net": 0
     },
     "financeBreakdown": {
       "model": "",
@@ -215,228 +215,228 @@ let quote = reactive (
   }
 )
 
-quote.cardMachine.rrPrice = computed(() => {
+buildQuote.cardMachine.rrp = computed(() => {
     for (let option in catalogue) {
-        if (quote.cardMachine.package == catalogue[option].id) {
-            return catalogue[option].field.rrPrice
+        if (buildQuote.cardMachine.package == catalogue[option].id) {
+            return catalogue[option].field.rrp
         }
     }
 })
 
-quote.cardMachine.wsPrice = computed(() => {
+buildQuote.cardMachine.wsp = computed(() => {
     for (let option in catalogue) {
-        if (quote.cardMachine.package == catalogue[option].id) {
-            return catalogue[option].field.wsPrice
+        if (buildQuote.cardMachine.package == catalogue[option].id) {
+            return catalogue[option].field.wsp
         }
     }
 })
 
-quote.marketing.rrPrice = computed(() => {
+buildQuote.marketing.rrp = computed(() => {
     for (let option in catalogue) {
-        if (quote.marketing.package == catalogue[option].id) {
-            return catalogue[option].field.rrPrice
+        if (buildQuote.marketing.package == catalogue[option].id) {
+            return catalogue[option].field.rrp
         }
     }
 })
 
-quote.marketing.wsPrice = computed(() => {
+buildQuote.marketing.wsp = computed(() => {
     for (let option in catalogue) {
-        if (quote.marketing.package == catalogue[option].id) {
-            return catalogue[option].field.wsPrice
+        if (buildQuote.marketing.package == catalogue[option].id) {
+            return catalogue[option].field.wsp
         }
     }
 })
 
-quote.merchandising.rrPrice = computed(() => {
+buildQuote.merchandising.rrp = computed(() => {
     for (let option in catalogue) {
-        if (quote.merchandising.package == catalogue[option].id) {
-            return catalogue[option].field.rrPrice
+        if (buildQuote.merchandising.package == catalogue[option].id) {
+            return catalogue[option].field.rrp
         }
     }
 })
 
-quote.merchandising.wsPrice = computed(() => {
+buildQuote.merchandising.wsp = computed(() => {
     for (let option in catalogue) {
-        if (quote.merchandising.package == catalogue[option].id) {
-            return catalogue[option].field.wsPrice
+        if (buildQuote.merchandising.package == catalogue[option].id) {
+            return catalogue[option].field.wsp
         }
     }
 })
 
-quote.drinkPack.rrPrice = computed(() => {
+buildQuote.drinkPack.rrp = computed(() => {
     for (let option in catalogue) {
-        if (quote.drinkPack.package == catalogue[option].id) {
-            return catalogue[option].field.rrPrice
+        if (buildQuote.drinkPack.package == catalogue[option].id) {
+            return catalogue[option].field.rrp
         }
     }
 })
 
-quote.drinkPack.wsPrice = computed(() => {
+buildQuote.drinkPack.wsp = computed(() => {
     for (let option in catalogue) {
-        if (quote.drinkPack.package == catalogue[option].id) {
-            return catalogue[option].field.wsPrice
+        if (buildQuote.drinkPack.package == catalogue[option].id) {
+            return catalogue[option].field.wsp
         }
     }
 })
 
-quote.machine.profit = computed(() => {
-    return parseInt(quote.machine.rrPrice) - parseInt(quote.machine.wsPrice)
+buildQuote.machine.net = computed(() => {
+    return parseInt(buildQuote.machine.rrp) - parseInt(buildQuote.machine.wsp)
 })
-quote.waterOption.profit = computed(() => {
-    return parseInt(quote.waterOption.rrPrice) - parseInt(quote.waterOption.wsPrice)
+buildQuote.waterOption.net = computed(() => {
+    return parseInt(buildQuote.waterOption.rrp) - parseInt(buildQuote.waterOption.wsp)
 })
-quote.warranty.profit = computed(() => {
-    return parseInt(quote.warranty.rrPrice) - parseInt(quote.warranty.wsPrice)
+buildQuote.warranty.net = computed(() => {
+    return parseInt(buildQuote.warranty.rrp) - parseInt(buildQuote.warranty.wsp)
 })
-quote.cardMachine.profit = computed(() => {
-    return parseInt(quote.cardMachine.rrPrice) - parseInt(quote.cardMachine.wsPrice)
+buildQuote.cardMachine.net = computed(() => {
+    return parseInt(buildQuote.cardMachine.rrp) - parseInt(buildQuote.cardMachine.wsp)
 })
-quote.marketing.profit = computed(() => {
-    return parseInt(quote.marketing.rrPrice) - parseInt(quote.marketing.wsPrice)
+buildQuote.marketing.net = computed(() => {
+    return parseInt(buildQuote.marketing.rrp) - parseInt(buildQuote.marketing.wsp)
 })
-quote.merchandising.profit = computed(() => {
-    return parseInt(quote.merchandising.rrPrice) - parseInt(quote.merchandising.wsPrice)
+buildQuote.merchandising.net = computed(() => {
+    return parseInt(buildQuote.merchandising.rrp) - parseInt(buildQuote.merchandising.wsp)
 })
-quote.drinkPack.profit = computed(() => {
-    return parseInt(quote.drinkPack.rrPrice) - parseInt(quote.drinkPack.wsPrice)
+buildQuote.drinkPack.net = computed(() => {
+    return parseInt(buildQuote.drinkPack.rrp) - parseInt(buildQuote.drinkPack.wsp)
 })
-quote.subTotal.profit = computed(() => {
-    return parseInt(quote.subTotal.rrPrice) - parseInt(quote.subTotal.wsPrice)
+buildQuote.subTotal.net = computed(() => {
+    return parseInt(buildQuote.subTotal.rrp) - parseInt(buildQuote.subTotal.wsp)
 })
-quote.discount.rrPrice = computed(() => {
-    return parseInt( - quote.subTotal.rrPrice) * parseInt(quote.discount.percentage) / 100
+buildQuote.discount.rrp = computed(() => {
+    return parseInt( - buildQuote.subTotal.rrp) * parseInt(buildQuote.discount.percentage) / 100
 })
-quote.discount.profit = computed(() => {
-    return parseInt(quote.discount.rrPrice)
+buildQuote.discount.net = computed(() => {
+    return parseInt(buildQuote.discount.rrp)
 })
-quote.additions.profit = computed(() => {
-    return parseInt(quote.additions.rrPrice) - parseInt(quote.additions.wsPrice)
+buildQuote.additions.net = computed(() => {
+    return parseInt(buildQuote.additions.rrp) - parseInt(buildQuote.additions.wsp)
 })
-quote.total.profit = computed(() => {
-    return parseInt(quote.total.rrPrice) - parseInt(quote.total.wsPrice)
+buildQuote.total.net = computed(() => {
+    return parseInt(buildQuote.total.rrp) - parseInt(buildQuote.total.wsp)
 })
-quote.finance.profit = computed(() => {
-    return parseInt(quote.finance.rrPrice) - parseInt(quote.finance.wsPrice)
+buildQuote.finance.net = computed(() => {
+    return parseInt(buildQuote.finance.rrp) - parseInt(buildQuote.finance.wsp)
 })
-quote.financeFee.profit = computed(() => {
-    return parseInt(quote.financeFee.rrPrice) - parseInt(quote.financeFee.wsPrice)
+buildQuote.financeFee.net = computed(() => {
+    return parseInt(buildQuote.financeFee.rrp) - parseInt(buildQuote.financeFee.wsp)
 })
-quote.finalPrice.profit = computed(() => {
-    return parseInt(quote.finalPrice.rrPrice) - parseInt(quote.finalPrice.wsPrice)
+buildQuote.finalPrice.net = computed(() => {
+    return parseInt(buildQuote.finalPrice.rrp) - parseInt(buildQuote.finalPrice.wsp)
 })
-quote.financeBreakdown.monthly = computed(() => {
-    return parseInt(quote.finalPrice.rrPrice) / 12 / parseInt(quote.finance.term)
+buildQuote.financeBreakdown.monthly = computed(() => {
+    return parseInt(buildQuote.finalPrice.rrp) / 12 / parseInt(buildQuote.finance.term)
 })
-quote.financeBreakdown.weekly = computed(() => {
-    return parseInt(quote.finalPrice.rrPrice) / 52 / parseInt(quote.finance.term)
+buildQuote.financeBreakdown.weekly = computed(() => {
+    return parseInt(buildQuote.finalPrice.rrp) / 52 / parseInt(buildQuote.finance.term)
 })
-quote.financeBreakdown.daily7 = computed(() => {
-    return parseInt(quote.finalPrice.rrPrice) / 52 / 7 / parseInt(quote.finance.term)
+buildQuote.financeBreakdown.daily7 = computed(() => {
+    return parseInt(buildQuote.finalPrice.rrp) / 52 / 7 / parseInt(buildQuote.finance.term)
 })
-quote.financeBreakdown.daily5 = computed(() => {
-    return parseInt(quote.finalPrice.rrPrice) / 52 / 5 / parseInt(quote.finance.term)
+buildQuote.financeBreakdown.daily5 = computed(() => {
+    return parseInt(buildQuote.finalPrice.rrp) / 52 / 5 / parseInt(buildQuote.finance.term)
 })
-quote.commission.providedLead = computed(() => {
-    return parseInt(quote.finalPrice.rrPrice) / 100 * 50
+buildQuote.commission.providedLead = computed(() => {
+    return parseInt(buildQuote.finalPrice.rrp) / 100 * 50
 })
-quote.commission.selfGenerated = computed(() => {
-    return parseInt(quote.finalPrice.rrPrice) / 100 * 75
+buildQuote.commission.selfGenerated = computed(() => {
+    return parseInt(buildQuote.finalPrice.rrp) / 100 * 75
 })
 // TODO: Put actual lead source in here
-quote.commission.percentageOfDeal = computed(() => {
+buildQuote.commission.percentageOfDeal = computed(() => {
     return (
-        parseInt(quote.finalPrice.rrPrice) ?
-        parseInt(quote.commission.selfGenerated) / parseInt(quote.finalPrice.rrPrice) * 100 :
+        parseInt(buildQuote.finalPrice.rrp) ?
+        parseInt(buildQuote.commission.selfGenerated) / parseInt(buildQuote.finalPrice.rrp) * 100 :
         0
     )
 })
 
-quote.subTotal.rrPrice = computed(() => {
+buildQuote.subTotal.rrp = computed(() => {
     const t =
-        parseInt(quote.machine.rrPrice) +
-        parseInt(quote.waterOption.rrPrice) +
-        parseInt(quote.warranty.rrPrice) +
-        parseInt(quote.cardMachine.rrPrice) +
-        parseInt(quote.marketing.rrPrice) +
-        parseInt(quote.merchandising.rrPrice) +
-        parseInt(quote.drinkPack.rrPrice)
+        parseInt(buildQuote.machine.rrp) +
+        parseInt(buildQuote.waterOption.rrp) +
+        parseInt(buildQuote.warranty.rrp) +
+        parseInt(buildQuote.cardMachine.rrp) +
+        parseInt(buildQuote.marketing.rrp) +
+        parseInt(buildQuote.merchandising.rrp) +
+        parseInt(buildQuote.drinkPack.rrp)
     return t
 })
-quote.subTotal.wsPrice = computed(() => {
+buildQuote.subTotal.wsp = computed(() => {
     const t =
-        parseInt(quote.machine.wsPrice) +
-        parseInt(quote.waterOption.wsPrice) +
-        parseInt(quote.warranty.wsPrice) +
-        parseInt(quote.cardMachine.wsPrice) +
-        parseInt(quote.marketing.wsPrice) +
-        parseInt(quote.merchandising.wsPrice) +
-        parseInt(quote.drinkPack.wsPrice)
-    return t
-})
-
-quote.total.rrPrice = computed(() => {
-    const t =
-        parseInt(quote.machine.rrPrice) +
-        parseInt(quote.waterOption.rrPrice) +
-        parseInt(quote.warranty.rrPrice) +
-        parseInt(quote.cardMachine.rrPrice) +
-        parseInt(quote.marketing.rrPrice) +
-        parseInt(quote.merchandising.rrPrice) +
-        parseInt(quote.drinkPack.rrPrice) +
-        parseInt(quote.discount.rrPrice) +
-        parseInt(quote.additions.rrPrice)
-
-    return t
-})
-quote.total.wsPrice = computed(() => {
-    const t =
-    parseInt(quote.machine.wsPrice) +
-        parseInt(quote.waterOption.wsPrice) +
-        parseInt(quote.warranty.wsPrice) +
-        parseInt(quote.cardMachine.wsPrice) +
-        parseInt(quote.marketing.wsPrice) +
-        parseInt(quote.merchandising.wsPrice) +
-        parseInt(quote.drinkPack.wsPrice) +
-        parseInt(quote.discount.wsPrice) +
-        parseInt(quote.additions.wsPrice)
+        parseInt(buildQuote.machine.wsp) +
+        parseInt(buildQuote.waterOption.wsp) +
+        parseInt(buildQuote.warranty.wsp) +
+        parseInt(buildQuote.cardMachine.wsp) +
+        parseInt(buildQuote.marketing.wsp) +
+        parseInt(buildQuote.merchandising.wsp) +
+        parseInt(buildQuote.drinkPack.wsp)
     return t
 })
 
-quote.finalPrice.rrPrice = computed(() => {
+buildQuote.total.rrp = computed(() => {
     const t =
-        parseInt(quote.machine.rrPrice) +
-        parseInt(quote.waterOption.rrPrice) +
-        parseInt(quote.warranty.rrPrice) +
-        parseInt(quote.cardMachine.rrPrice) +
-        parseInt(quote.marketing.rrPrice) +
-        parseInt(quote.merchandising.rrPrice) +
-        parseInt(quote.drinkPack.rrPrice) +
-        parseInt(quote.discount.rrPrice) +
-        parseInt(quote.additions.rrPrice) +
-        parseInt(quote.financeFee.rrPrice) +
-        parseInt(quote.finance.rrPrice)
+        parseInt(buildQuote.machine.rrp) +
+        parseInt(buildQuote.waterOption.rrp) +
+        parseInt(buildQuote.warranty.rrp) +
+        parseInt(buildQuote.cardMachine.rrp) +
+        parseInt(buildQuote.marketing.rrp) +
+        parseInt(buildQuote.merchandising.rrp) +
+        parseInt(buildQuote.drinkPack.rrp) +
+        parseInt(buildQuote.discount.rrp) +
+        parseInt(buildQuote.additions.rrp)
+
+    return t
+})
+buildQuote.total.wsp = computed(() => {
+    const t =
+    parseInt(buildQuote.machine.wsp) +
+        parseInt(buildQuote.waterOption.wsp) +
+        parseInt(buildQuote.warranty.wsp) +
+        parseInt(buildQuote.cardMachine.wsp) +
+        parseInt(buildQuote.marketing.wsp) +
+        parseInt(buildQuote.merchandising.wsp) +
+        parseInt(buildQuote.drinkPack.wsp) +
+        parseInt(buildQuote.discount.wsp) +
+        parseInt(buildQuote.additions.wsp)
+    return t
+})
+
+buildQuote.finalPrice.rrp = computed(() => {
+    const t =
+        parseInt(buildQuote.machine.rrp) +
+        parseInt(buildQuote.waterOption.rrp) +
+        parseInt(buildQuote.warranty.rrp) +
+        parseInt(buildQuote.cardMachine.rrp) +
+        parseInt(buildQuote.marketing.rrp) +
+        parseInt(buildQuote.merchandising.rrp) +
+        parseInt(buildQuote.drinkPack.rrp) +
+        parseInt(buildQuote.discount.rrp) +
+        parseInt(buildQuote.additions.rrp) +
+        parseInt(buildQuote.financeFee.rrp) +
+        parseInt(buildQuote.finance.rrp)
 
 
     return t
 })
-quote.finalPrice.wsPrice = computed(() => {
+buildQuote.finalPrice.wsp = computed(() => {
     const t =
-    parseInt(quote.machine.wsPrice) +
-        parseInt(quote.waterOption.wsPrice) +
-        parseInt(quote.warranty.wsPrice) +
-        parseInt(quote.cardMachine.wsPrice) +
-        parseInt(quote.marketing.wsPrice) +
-        parseInt(quote.merchandising.wsPrice) +
-        parseInt(quote.drinkPack.wsPrice) +
-        parseInt(quote.discount.wsPrice) +
-        parseInt(quote.additions.wsPrice) +
-        parseInt(quote.financeFee.wsPrice) +
-        parseInt(quote.finance.wsPrice)
+    parseInt(buildQuote.machine.wsp) +
+        parseInt(buildQuote.waterOption.wsp) +
+        parseInt(buildQuote.warranty.wsp) +
+        parseInt(buildQuote.cardMachine.wsp) +
+        parseInt(buildQuote.marketing.wsp) +
+        parseInt(buildQuote.merchandising.wsp) +
+        parseInt(buildQuote.drinkPack.wsp) +
+        parseInt(buildQuote.discount.wsp) +
+        parseInt(buildQuote.additions.wsp) +
+        parseInt(buildQuote.financeFee.wsp) +
+        parseInt(buildQuote.finance.wsp)
     return t
 })
 
 // TODO: delete this
-quote.finance.term = 3
+buildQuote.finance.term = 3
 
 const actual = ref(null)
 
