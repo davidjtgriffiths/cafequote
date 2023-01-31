@@ -4,6 +4,7 @@ import { getAuth, signOut, signInWithEmailAndPassword, onAuthStateChanged } from
 import { useStoreLeads } from '@/stores/StoreLeads.js'
 import { useStoreQuotes } from '@/stores/StoreQuotes.js'
 import { useStoreSysVars } from '@/stores/StoreSysVars.js'
+import { useStoreCatalogue } from '@/stores/StoreCatalogue.js'
 
 
 
@@ -21,6 +22,7 @@ export const useStoreAuth = defineStore('storeAuth', {
         const storeLeads = useStoreLeads()
         const storeQuotes = useStoreQuotes()
         const storeSysVars = useStoreSysVars()
+        const storeCatalogue = useStoreCatalogue()
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -34,6 +36,7 @@ export const useStoreAuth = defineStore('storeAuth', {
               storeLeads.init()
               storeQuotes.init()
               storeSysVars.init()
+              storeCatalogue.init()
               // ...
             } else {
               // User is signed out
@@ -42,6 +45,7 @@ export const useStoreAuth = defineStore('storeAuth', {
               this.router.replace('/auth')
               storeLeads.clearLeads()
               storeQuotes.clearQuotes()
+              storeCatalogue.clearCatalogue()
             }
           });
     },
