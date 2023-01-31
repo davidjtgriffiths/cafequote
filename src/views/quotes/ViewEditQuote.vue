@@ -726,6 +726,7 @@ console.log(event)
 
 // TODO: HERE IS NEXT 
 // const catalogue = reactive(catalogueStore.catalogue)
+// using storeCatalogue.getCatalogueOptions(option)
 
 const value = ref()
 const brand = ref()
@@ -850,6 +851,9 @@ let buildQuote = reactive (
   }
 )
 
+// USE THIS INSTEAD storeCatalogue.getCatalogueOptions(option)
+buildQuote.cardMachine.rrp = storeCatalogue.getCatalogueOptions('cardMachine')
+console.log('card options',storeCatalogue.getCatalogueOptions('cardMachine'))
 // buildQuote.cardMachine.rrp = computed(() => {
 //     for (let option in catalogue) {
 //         if (buildQuote.cardMachine.package == catalogue[option].id) {

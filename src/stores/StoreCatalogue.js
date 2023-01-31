@@ -50,7 +50,7 @@ let x= "merchandising"
         getCatalogueOptions(option) {
 
             var index = this.items.map(function (opt) { return opt.id; }).indexOf(option);
-            // console.log(`xxxxxxxxxxx options for ${option}`, this.items[index].data.description)
+            console.log(`xxxxxxxxxxx options for ${option}`, this.items[index].data.description)
 // TODO: NEARLY THERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         }
     }
