@@ -3,6 +3,7 @@ import { auth } from '@/js/firebase'
 import { getAuth, signOut, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { useStoreLeads } from '@/stores/StoreLeads.js'
 import { useStoreQuotes } from '@/stores/StoreQuotes.js'
+import { useStoreItemOptions } from '@/stores/StoreItemOptions.js'
 import { useStoreSysVars } from '@/stores/StoreSysVars.js'
 import { useStoreCatalogue } from '@/stores/StoreCatalogue.js'
 
@@ -22,6 +23,7 @@ export const useStoreAuth = defineStore('storeAuth', {
         const storeLeads = useStoreLeads()
         const storeQuotes = useStoreQuotes()
         const storeSysVars = useStoreSysVars()
+        const storeItemOptions = useStoreItemOptions()
         const storeCatalogue = useStoreCatalogue()
 
         onAuthStateChanged(auth, (user) => {
@@ -36,6 +38,7 @@ export const useStoreAuth = defineStore('storeAuth', {
               storeLeads.init()
               storeQuotes.init()
               storeSysVars.init()
+              storeItemOptions.init()
               storeCatalogue.init()
               // ...
             } else {

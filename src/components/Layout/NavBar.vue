@@ -67,6 +67,14 @@
                 >
                     System Variables
                 </RouterLink>
+                <RouterLink
+                    @click="showMobileNav = false"
+                    to="/itemoptions"
+                    class="navbar-item"
+                    active-class="is-active"
+                >
+                    Item Options
+                </RouterLink>
 
             <!-- <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">

@@ -5,6 +5,8 @@ import ViewQuotes from '@/views/quotes/ViewQuotes.vue'
 import ViewEditQuote from '@/views/quotes/ViewEditQuote.vue'
 import ViewSysVars from '@/views/sysvars/ViewSysVars.vue'
 import ViewEditSysVar from '@/views/sysvars/ViewEditSysVar.vue'
+import ViewItemOptions from '@/views/itemoptions/ViewItemOptions.vue'
+import ViewEditItemOption from '@/views/itemoptions/ViewEditItemOption.vue'
 import PreviewContract from '@/views/quotes/PreviewContract.vue'
 import ViewAuth from '@/views/auth/ViewAuth.vue'
 import { useStoreAuth } from '@/stores/StoreAuth.js'
@@ -39,6 +41,16 @@ const routes = [
         path: '/editsysvar/:id',
         name: 'edit-sysvar',
         component: ViewEditSysVar
+    },
+    {
+        path: '/itemoptions',
+        name: 'itemoptions',
+        component: ViewItemOptions
+    },
+    {
+        path: '/edititemoption/:id',
+        name: 'edit-itemoption',
+        component: ViewEditItemOption
     },
     {
         path: '/previewContract/:id',

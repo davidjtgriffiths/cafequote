@@ -684,10 +684,11 @@
     import { normalizeStyle, ref, reactive, computed, watch, onMounted } from 'vue'
 
     import Quote from '@/components/Quotes/Quote.vue'
- 
+
 
     import { useStoreLeads } from '@/stores/StoreLeads'
     import { useStoreSysVars } from '@/stores/StoreSysVars'
+    import { useStoreItemOptions } from '@/stores/StoreItemOptions'
 
 
 
@@ -724,7 +725,7 @@ console.log(event)
 
 
 
-// TODO: HERE IS NEXT 
+// TODO: HERE IS NEXT
 // const catalogue = reactive(catalogueStore.catalogue)
 // using storeCatalogue.getCatalogueOptions(option)
 
