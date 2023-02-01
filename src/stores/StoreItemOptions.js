@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { collection, onSnapshot, setDoc, doc, addDoc, deleteDoc, updateDoc } from "firebase/firestore";
+import { collection, onSnapshot, setDoc, doc, addDoc, deleteDoc, updateDoc, FieldPath } from "firebase/firestore";
 import { db } from '@/js/firebase.js'
 import { query, orderBy, limit } from "firebase/firestore";
 import { useStoreAuth } from '@/stores/StoreAuth.js'
@@ -38,6 +38,7 @@ export const useStoreItemOptions = defineStore('storeItemOptions', {
                 id: doc.id,
                 item: doc.data().item,
                 option: doc.data().option,
+                rrp: doc.data().rrp,
                 date: doc.data().date
             }
             itemOptions.push(itemOption)
@@ -57,6 +58,7 @@ console.log('trying to add new itemOption', newItemOption)
         await addDoc(itemOptionsCollectionRef, {
             item: newItemOption.item,
             option: newItemOption.option,
+            rrp: newItemOption.rrp,
             date: date
         });
 
@@ -72,6 +74,7 @@ console.log('trying to add new itemOption', newItemOption)
         await updateDoc(doc(itemOptionsCollectionRef, id), {
             item: itemOption.item,
             option: itemOption.option,
+            rrp: itemOption.rrp,
             edited: 'true'
           });
         //   if the field dont exist it wont be added
@@ -83,10 +86,30 @@ console.log('trying to add new itemOption', newItemOption)
             return state.itemOptions.filter(itemOption => { return itemOption.id === id })[0]
         }
     },
-    getItemOptionByName: (state) => {
-        return (varName) => {
-            console.log('looking for ',varName)
-            return state.itemOptions.filter(itemOption => { return itemOption.var === varName })[0]
+    getItemOptionsByItem: (state) => {
+        return (item) => {
+            console.log('looking for item ',item)
+            let options = []
+            let list = state.itemOptions.filter(itemOption => { return itemOption.item === item })
+            for (item in list) {
+                console.log('loop ', item, list[item])
+                options.push(list[item]['option'])
+            }
+            return options
+        }
+    },
+    getItemFieldByItemAndOption: (state) => {
+        return (field, item, option) => {
+            console.log('looking for field, item, option ', field, item, option)
+
+
+            let value = state.itemOptions.filter(itemOption => { return itemOption.item === item && itemOption.option === option })
+                // for (option in list) {
+                //     console.log('loop ', item, list[item])
+                //     options.push(list[item]['option'])
+                // }
+                console.log(' xxxxxxxxxxxxxxxxxxxxxxxxx value', value[0][field])
+            return value[0][field]
         }
     }
   }

@@ -16,7 +16,7 @@
         </template>
     </AddEditItemOption>
 
-    itemoptions{{ useStoreItemOptions.itemOptions }}
+    itemoptions {{ storeItemOptions.getItemOptionsByItem('merchandising') }}
 
     <!-- this should be the bulma table -->
     <ItemOption
@@ -34,7 +34,6 @@
     import { useStoreItemOptions } from '@/stores/StoreItemOptions'
 
 
-
     const newItemOption = reactive({
         item: '',
         option: ''
@@ -42,6 +41,7 @@
     const addEditItemOptionRef = ref(null)
     const storeItemOptions = useStoreItemOptions()
 
+    console.log(storeItemOptions.getItemOptionsByItem('merchandising'))
     const addItemOption = () => {
         console.log('new itemOption to store', newItemOption)
         storeItemOptions.addItemOption(newItemOption)

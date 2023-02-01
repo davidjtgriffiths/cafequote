@@ -243,11 +243,17 @@
     <!-- TODO: jiojodd -->
     <select
         v-model="buildQuote.merchandising.package"
-        label="Merchandising"
-        :options="catalogue"
-        :text-by="(catalogue)=>catalogue.field.description"
-        :value-by="(catalogue)=>catalogue.id"
-    />
+        name="merchandising"
+        id="merchandising"
+        @change="dropDownChanged($event)"
+    >
+        <option
+            v-for="item in storeItemOptions.getItemOptionsByItem('merchandising')"
+            :value="item"
+        >
+            {{ item }}
+        </option>
+    </select>
   </div>
 
 <div class="text-green-800 font-semibold">
@@ -255,7 +261,7 @@
 </div>
 
 <div class="rrp">
-    <input readonly v-model="buildQuote.merchandising.rrp" />
+    <input readonly v-model="buildQuote.merchandising.rrp"/>
 </div>
 
 <div class="wsp">
@@ -263,7 +269,7 @@
 </div>
 
 <div class="net">
-    <input readonly v-model="buildQuote.merchandising.net" />
+    <input readonly v-model="buildQuote.merchandising.net"/>
 </div>
 <!-- End Row -->
 
@@ -693,11 +699,13 @@
 
 
 
+
 import { defineComponent } from 'vue';
 
     let quote = ref({})
     const storeQuotes = useStoreQuotes()
     const storeCatalogue = useStoreCatalogue()
+    const storeItemOptions = useStoreItemOptions()
     const route = useRoute()
     const router = useRouter()
 
@@ -851,6 +859,13 @@ let buildQuote = reactive (
     }
   }
 )
+
+function dropDownChanged($event) {
+    console.log('event', $event)
+    console.log('event', $event.srcElement.id)// need the parent id
+    console.log('event', $event.target.value) // option selected
+    buildQuote[$event.srcElement.id].rrp = storeItemOptions.getItemFieldByItemAndOption('rrp', $event.srcElement.id, $event.target.value)
+}
 
 // USE THIS INSTEAD storeCatalogue.getCatalogueOptions(option)
 buildQuote.cardMachine.rrp = storeCatalogue.getCatalogueOptions('cardMachine')
