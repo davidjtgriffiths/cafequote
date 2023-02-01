@@ -868,7 +868,7 @@ function dropDownChanged($event) {
 }
 
 // USE THIS INSTEAD storeCatalogue.getCatalogueOptions(option)
-buildQuote.cardMachine.rrp = storeCatalogue.getCatalogueOptions('cardMachine')
+// buildQuote.cardMachine.rrp = storeCatalogue.getCatalogueOptions('cardMachine')
 console.log('card options',storeCatalogue.getCatalogueOptions('cardMachine'))
 // buildQuote.cardMachine.rrp = computed(() => {
 //     for (let option in catalogue) {
