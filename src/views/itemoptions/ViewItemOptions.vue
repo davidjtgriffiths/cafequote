@@ -16,6 +16,8 @@
         </template>
     </AddEditItemOption>
 
+    itemoptions{{ useStoreItemOptions.itemOptions }}
+
     <!-- this should be the bulma table -->
     <ItemOption
         v-for="itemOption in storeItemOptions.itemOptions"
