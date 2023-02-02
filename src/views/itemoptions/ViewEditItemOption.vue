@@ -1,8 +1,13 @@
 <template>
     <AddEditItemOption
     v-if="itemOption"
+        v-model:parent="itemOption.parent"
+        v-model:child="itemOption.child"
         v-model:item="itemOption.item"
         v-model:option="itemOption.option"
+        v-model:wsp="itemOption.wsp"
+        v-model:rrp="itemOption.rrp"
+        v-model:longDescription="itemOption.longDescription"
         label="Editing ItemOption"
         ref="addEditItemOptionRef"
     >

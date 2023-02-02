@@ -4,8 +4,13 @@
     >
         <div class="card-content">
             <div class="content">
+                <div>{{ itemOption.parent }}</div>
+                <div>{{ itemOption.child }}</div>
                 <div>{{ itemOption.item }}</div>
                 <div>{{ itemOption.option }}</div>
+                <div>{{ itemOption.wsp }}</div>
+                <div>{{ itemOption.rrp }}</div>
+                <div>{{ itemOption.longDescription }}</div>
                 <div class="has-text-right mt-2">
                     <small>Date {{ dateFormatted }}</small>
                 </div>

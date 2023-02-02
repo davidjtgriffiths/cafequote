@@ -21,31 +21,7 @@
         </template>
     </AddEditQuote>
 
-    <div class="card xhas-background-link-dark p-4 mb-5">
-        <label style="display: block" for="merchandising">        {{ storeCatalogue.getCatalogueOptions('cardMachine') }}</label>
-
-        <select
-            name="merchandising"
-            v-model="test"
-            @change="selectChanged(test)"
-
-        >
-        <option
-            v-for="catalogueItem in storeCatalogue.items"
-            :value= catalogueItem.description
-
-        >
-        {{ catalogueItem.name }}
-        </option>
-        </select>
-
-
-
-
-    </div>
-    <br><br>
-
-    <div v-if="buildQuote" class="quote-container ">
+<div v-if="buildQuote" class="quote-container ">
 
 <!-- Start Row -->
 <div class="font-bold">
@@ -72,11 +48,23 @@
 
 <!-- Start Row -->
 <div>
-    <select v-model="buildQuote" label="Model" :options="options" />
+    <select
+        v-model="buildQuote.machine.description"
+        name="machine"
+        id="machine"
+        @change="dropDownChanged($event)"
+    >
+        <option
+            v-for="item in storeItemOptions.getItemOptionsByItem('machine')"
+            :value="item"
+        >
+            {{ item }}
+        </option>
+    </select>
 </div>
 
 <div>
-    <select v-model="buildQuote.machine.model.variant" label="Variant" :options="options" />
+
 </div>
 
 <div class="rrp">
@@ -94,7 +82,19 @@
 
 <!-- Start Row -->
 <div>
-    <select v-model="buildQuote.waterOption.description" label="Water Option" :options="options" />
+    <select
+        v-model="buildQuote.waterOption.description"
+        name="waterOption"
+        id="waterOption"
+        @change="dropDownChanged($event)"
+    >
+        <option
+            v-for="item in storeItemOptions.getItemOptionsByItem('waterOption')"
+            :value="item"
+        >
+            {{ item }}
+        </option>
+    </select>
 </div>
 
 <div>
@@ -138,11 +138,23 @@
 
 <!-- Start Row -->
 <div class="text-green-800 font-semibold">
-    <select v-model="buildQuote.warranty.term" label="Term" :options="options" />
+    <select
+        v-model="buildQuote.warranty.description"
+        name="warranty"
+        id="warranty"
+        @change="dropDownChanged($event)"
+    >
+        <option
+            v-for="item in storeItemOptions.getItemOptionsByItem('warranty')"
+            :value="item"
+        >
+            {{ item }}
+        </option>
+    </select>
 </div>
 
 <div class="text-green-800 font-semibold">
-    <select v-model="buildQuote.warranty.term.cover" label="Cover" :options="options" />
+
 </div>
 
 <div>
@@ -183,7 +195,7 @@
 <!-- Start Row -->
 <div class="text-green-800 font-semibold">
     <select
-        v-model="buildQuote.cardMachine.package"
+        v-model="buildQuote.cardMachine.description"
         name="cardMachine"
         id="cardMachine"
         @change="dropDownChanged($event)"
@@ -218,7 +230,7 @@
 <!-- Start Row -->
 <div class="text-green-800 font-semibold">
     <select
-        v-model="buildQuote.marketing.package"
+        v-model="buildQuote.marketing.description"
         name="marketing"
         id="marketing"
         @change="dropDownChanged($event)"
@@ -254,7 +266,7 @@
 
     <!-- TODO: jiojodd -->
     <select
-        v-model="buildQuote.merchandising.package"
+        v-model="buildQuote.merchandising.description"
         name="merchandising"
         id="merchandising"
         @change="dropDownChanged($event)"
@@ -288,7 +300,7 @@
 <!-- Start Row -->
 <div class="text-green-800 font-semibold">
     <select
-        v-model="buildQuote.drinkPack.package"
+        v-model="buildQuote.drinkPack.description"
         name="drinkPack"
         id="drinkPack"
         @change="dropDownChanged($event)"
@@ -337,7 +349,7 @@
 </div>
 
 <div class="font-bold">
-    net
+    NET
 </div>
 <!-- End Row -->
 
@@ -450,7 +462,7 @@
 </div>
 
 <div class="font-bold">
-    net
+    NET
 </div>
 <!-- End Row -->
 
@@ -480,7 +492,7 @@
 
 <!-- Start Row -->
 <div class="font-bold">
-    Finance (est.)
+    Finance
 </div>
 
 <div>
@@ -502,7 +514,19 @@
 
 <!-- Start Row -->
 <div class="text-green-800 font-semibold">
-    <select v-model="buildQuote.finance.term" label="Term" :options="options" />
+    <select
+        v-model="buildQuote.finance.description"
+        name="finance"
+        id="finance"
+        @change="dropDownChanged($event)"
+    >
+        <option
+            v-for="item in storeItemOptions.getItemOptionsByItem('finance')"
+            :value="item"
+        >
+            {{ item }}
+        </option>
+    </select>
 </div>
 
 <div class="text-green-800 font-semibold">
@@ -510,15 +534,15 @@
 </div>
 
 <div>
-    <input readonly v-model="buildQuote.finance.rrp" />
+
 </div>
 
 <div class="wsp">
-    <input readonly v-model="buildQuote.finance.wsp" />
+
 </div>
 
 <div class="net">
-    <input readonly v-model="buildQuote.finance.net" />
+
 </div>
 <!-- End Row -->
 
@@ -564,7 +588,7 @@
 </div>
 
 <div class="font-bold">
-    net
+    NET
 </div>
 <!-- End Row -->
 
@@ -606,11 +630,15 @@
     <div>Weekly</div>
     <div>Cups</div>
 </div>
-<div class="font-bold">
-    Daily 7
+
+<div class="font-bold two-col-col">
+    <div>Daily7</div>
+    <div>Cups</div>
 </div>
-<div class="font-bold">
-    Daily 5
+
+<div class="font-bold two-col-col">
+    <div>Daily5</div>
+    <div>Cups</div>
 </div>
 <!-- End Row -->
 
@@ -621,25 +649,108 @@
 </div>
 
 <div class="font-bold">
-    <input readonly v-model="buildQuote.financeBreakdown.monthly" />
+    <input readonly v-model="buildQuote.financeBreakdownT1.monthly" />
 </div>
 <div class="font-bold two-col-col">
     <div>
-    <input class="border border-solid border-gray-300 block mb-2 text-sm font-medium text-gray-900" readonly v-model="buildQuote.financeBreakdown.weekly" />
+    <input readonly v-model="buildQuote.financeBreakdownT1.weekly" />
     </div>
     <div>
-    <input readonly v-model="buildQuote.financeBreakdown.weekly" />
+    <input readonly v-model="buildQuote.financeBreakdownT1.weeklyCups" />
     </div>
 </div>
 
+<div class="font-bold two-col-col">
+    <div>
+        <input readonly v-model="buildQuote.financeBreakdownT1.daily7" />
+    </div>
+    <div>
+        <input readonly v-model="buildQuote.financeBreakdownT1.daily7Cups" />
+    </div>
+</div>
+
+<div class="font-bold two-col-col">
+    <div>
+        <input readonly v-model="buildQuote.financeBreakdownT1.daily5" />
+    </div>
+    <div>
+        <input readonly v-model="buildQuote.financeBreakdownT1.daily5Cups" />
+    </div>
+</div>
+<!-- End Row -->
+
+<!-- Start Row -->
 <div class="font-bold">
-    <input readonly v-model="buildQuote.financeBreakdown.daily7" />
+    Tier 2
 </div>
 
 <div class="font-bold">
-    <input readonly v-model="buildQuote.financeBreakdown.daily5" />
+    <input readonly v-model="buildQuote.financeBreakdownT2.monthly" />
+</div>
+<div class="font-bold two-col-col">
+    <div>
+    <input readonly v-model="buildQuote.financeBreakdownT2.weekly" />
+    </div>
+    <div>
+    <input readonly v-model="buildQuote.financeBreakdownT2.weeklyCups" />
+    </div>
+</div>
+
+<div class="font-bold two-col-col">
+    <div>
+        <input readonly v-model="buildQuote.financeBreakdownT2.daily7" />
+    </div>
+    <div>
+        <input readonly v-model="buildQuote.financeBreakdownT2.daily7Cups" />
+    </div>
+</div>
+
+<div class="font-bold two-col-col">
+    <div>
+        <input readonly v-model="buildQuote.financeBreakdownT2.daily5" />
+    </div>
+    <div>
+        <input readonly v-model="buildQuote.financeBreakdownT2.daily5Cups" />
+    </div>
 </div>
 <!-- End Row -->
+
+<!-- Start Row -->
+<div class="font-bold">
+    Tier 3
+</div>
+
+<div class="font-bold">
+    <input readonly v-model="buildQuote.financeBreakdownT3.monthly" />
+</div>
+<div class="font-bold two-col-col">
+    <div>
+    <input readonly v-model="buildQuote.financeBreakdownT3.weekly" />
+    </div>
+    <div>
+    <input readonly v-model="buildQuote.financeBreakdownT3.weeklyCups" />
+    </div>
+</div>
+
+<div class="font-bold two-col-col">
+    <div>
+        <input readonly v-model="buildQuote.financeBreakdownT3.daily7" />
+    </div>
+    <div>
+        <input readonly v-model="buildQuote.financeBreakdownT3.daily7Cups" />
+    </div>
+</div>
+
+<div class="font-bold two-col-col">
+    <div>
+        <input readonly v-model="buildQuote.financeBreakdownT3.daily5" />
+    </div>
+    <div>
+        <input readonly v-model="buildQuote.financeBreakdownT3.daily5Cups" />
+    </div>
+</div>
+<!-- End Row -->
+
 
 <!-- Put this in footer -->
 <!-- Start Row -->
@@ -724,6 +835,7 @@ import { defineComponent } from 'vue';
     const storeQuotes = useStoreQuotes()
     const storeCatalogue = useStoreCatalogue()
     const storeItemOptions = useStoreItemOptions()
+    const storeSysVars = useStoreSysVars()
     const route = useRoute()
     const router = useRouter()
 
@@ -784,28 +896,28 @@ let buildQuote = reactive (
       "net": 0
     },
     "cardMachine": {
-      "package": "0",
+      "description": "0",
       "variant": "",
       "rrp": 0,
       "wsp": 0,
       "net": 0
     },
     "marketing": {
-      "package": "0",
+      "description": "0",
       "variant": "",
       "rrp": 0,
       "wsp": 0,
       "net": 0
     },
     "merchandising": {
-      "package": "0",
+      "description": "0",
       "variant": "",
       "rrp": 0,
       "wsp": 0,
       "net": 0
     },
     "drinkPack": {
-      "package": "0",
+      "description": "0",
       "variant": "",
       "rrp": 0,
       "wsp": 0,
@@ -860,7 +972,21 @@ let buildQuote = reactive (
       "wsp": 0,
       "net": 0
     },
-    "financeBreakdown": {
+    "financeBreakdownT1": {
+      "model": "",
+      "monthly": "",
+      "weekly": 0,
+      "daily7": 0,
+      "daily5": 0
+    },
+    "financeBreakdownT2": {
+      "model": "",
+      "monthly": "",
+      "weekly": 0,
+      "daily7": 0,
+      "daily5": 0
+    },
+    "financeBreakdownT3": {
       "model": "",
       "monthly": "",
       "weekly": 0,
@@ -880,7 +1006,7 @@ let buildQuote = reactive (
 
 function dropDownChanged($event) {
     console.log('event', $event)
-    console.log('event', $event.srcElement.id)// need the parent id
+    console.log('event', $event.srcElement.id)// need the parent / child id
     console.log('event', $event.target.value) // option selected
     buildQuote[$event.srcElement.id].rrp = storeItemOptions.getItemFieldByItemAndOption('rrp', $event.srcElement.id, $event.target.value)
     buildQuote[$event.srcElement.id].wsp = storeItemOptions.getItemFieldByItemAndOption('wsp', $event.srcElement.id, $event.target.value)
@@ -891,7 +1017,7 @@ function dropDownChanged($event) {
 console.log('card options',storeCatalogue.getCatalogueOptions('cardMachine'))
 // buildQuote.cardMachine.rrp = computed(() => {
 //     for (let option in catalogue) {
-//         if (buildQuote.cardMachine.package == catalogue[option].id) {
+//         if (buildQuote.cardMachine.description == catalogue[option].id) {
 //             return catalogue[option].field.rrp
 //         }
 //     }
@@ -899,7 +1025,7 @@ console.log('card options',storeCatalogue.getCatalogueOptions('cardMachine'))
 
 // buildQuote.cardMachine.wsp = computed(() => {
 //     for (let option in catalogue) {
-//         if (buildQuote.cardMachine.package == catalogue[option].id) {
+//         if (buildQuote.cardMachine.description == catalogue[option].id) {
 //             return catalogue[option].field.wsp
 //         }
 //     }
@@ -907,7 +1033,7 @@ console.log('card options',storeCatalogue.getCatalogueOptions('cardMachine'))
 
 // buildQuote.marketing.rrp = computed(() => {
 //     for (let option in catalogue) {
-//         if (buildQuote.marketing.package == catalogue[option].id) {
+//         if (buildQuote.marketing.description == catalogue[option].id) {
 //             return catalogue[option].field.rrp
 //         }
 //     }
@@ -915,7 +1041,7 @@ console.log('card options',storeCatalogue.getCatalogueOptions('cardMachine'))
 
 // buildQuote.marketing.wsp = computed(() => {
 //     for (let option in catalogue) {
-//         if (buildQuote.marketing.package == catalogue[option].id) {
+//         if (buildQuote.marketing.description == catalogue[option].id) {
 //             return catalogue[option].field.wsp
 //         }
 //     }
@@ -923,7 +1049,7 @@ console.log('card options',storeCatalogue.getCatalogueOptions('cardMachine'))
 
 // buildQuote.merchandising.rrp = computed(() => {
 //     for (let option in catalogue) {
-//         if (buildQuote.merchandising.package == catalogue[option].id) {
+//         if (buildQuote.merchandising.description == catalogue[option].id) {
 //             return catalogue[option].field.rrp
 //         }
 //     }
@@ -931,7 +1057,7 @@ console.log('card options',storeCatalogue.getCatalogueOptions('cardMachine'))
 
 // buildQuote.merchandising.wsp = computed(() => {
 //     for (let option in catalogue) {
-//         if (buildQuote.merchandising.package == catalogue[option].id) {
+//         if (buildQuote.merchandising.description == catalogue[option].id) {
 //             return catalogue[option].field.wsp
 //         }
 //     }
@@ -939,7 +1065,7 @@ console.log('card options',storeCatalogue.getCatalogueOptions('cardMachine'))
 
 // buildQuote.drinkPack.rrp = computed(() => {
 //     for (let option in catalogue) {
-//         if (buildQuote.drinkPack.package == catalogue[option].id) {
+//         if (buildQuote.drinkPack.description == catalogue[option].id) {
 //             return catalogue[option].field.rrp
 //         }
 //     }
@@ -947,7 +1073,7 @@ console.log('card options',storeCatalogue.getCatalogueOptions('cardMachine'))
 
 // buildQuote.drinkPack.wsp = computed(() => {
 //     for (let option in catalogue) {
-//         if (buildQuote.drinkPack.package == catalogue[option].id) {
+//         if (buildQuote.drinkPack.description == catalogue[option].id) {
 //             return catalogue[option].field.wsp
 //         }
 //     }
@@ -998,18 +1124,29 @@ buildQuote.financeFee.net = computed(() => {
 buildQuote.finalPrice.net = computed(() => {
     return parseInt(buildQuote.finalPrice.rrp) - parseInt(buildQuote.finalPrice.wsp)
 })
-buildQuote.financeBreakdown.monthly = computed(() => {
-    return parseInt(buildQuote.finalPrice.rrp) / 12 / parseInt(buildQuote.finance.term)
-})
-buildQuote.financeBreakdown.weekly = computed(() => {
+// TODO: Repeat for T2 & 3 once ive calculated total cost of finance from here .....
+// buildQuote.financeBreakdownT1.monthly = computed(() => { //TODO: This is bollocks!
+//     return parseInt(buildQuote.finalPrice.rrp) * parseInt(storeItemOptions.getItemFieldByItemAndOption('wsp', 'finance', buildQuote.finance.wsp)) / 12 / parseInt(buildQuote.finance.term)
+// })
+buildQuote.financeBreakdownT1.weekly = computed(() => {
     return parseInt(buildQuote.finalPrice.rrp) / 52 / parseInt(buildQuote.finance.term)
 })
-buildQuote.financeBreakdown.daily7 = computed(() => {
+buildQuote.financeBreakdownT1.weeklyCups = computed(() => {
+    return parseInt(buildQuote.financeBreakdownT1.weekly) / parseInt(storeSysVars.getSysVarByName('rrpPerCup').val)
+})
+buildQuote.financeBreakdownT1.daily7 = computed(() => {
     return parseInt(buildQuote.finalPrice.rrp) / 52 / 7 / parseInt(buildQuote.finance.term)
 })
-buildQuote.financeBreakdown.daily5 = computed(() => {
+buildQuote.financeBreakdownT1.daily7Cups = computed(() => {
+    return parseInt(buildQuote.financeBreakdownT1.daily7) / parseInt(storeSysVars.getSysVarByName('rrpPerCup').val)
+})
+buildQuote.financeBreakdownT1.daily5 = computed(() => {
     return parseInt(buildQuote.finalPrice.rrp) / 52 / 5 / parseInt(buildQuote.finance.term)
 })
+buildQuote.financeBreakdownT1.daily5Cups = computed(() => {
+    return parseInt(buildQuote.financeBreakdownT1.daily5) / parseInt(storeSysVars.getSysVarByName('rrpPerCup').val)
+})
+// TODO: ....to here
 buildQuote.commission.providedLead = computed(() => {
     return parseInt(buildQuote.finalPrice.rrp) / 100 * 50
 })
@@ -1064,7 +1201,7 @@ buildQuote.total.rrp = computed(() => {
 })
 buildQuote.total.wsp = computed(() => {
     const t =
-    parseInt(buildQuote.machine.wsp) +
+        parseInt(buildQuote.machine.wsp) +
         parseInt(buildQuote.waterOption.wsp) +
         parseInt(buildQuote.warranty.wsp) +
         parseInt(buildQuote.cardMachine.wsp) +
@@ -1087,15 +1224,14 @@ buildQuote.finalPrice.rrp = computed(() => {
         parseInt(buildQuote.drinkPack.rrp) +
         parseInt(buildQuote.discount.rrp) +
         parseInt(buildQuote.additions.rrp) +
-        parseInt(buildQuote.financeFee.rrp) +
-        parseInt(buildQuote.finance.rrp)
+        parseInt(buildQuote.financeFee.rrp)
 
 
     return t
 })
 buildQuote.finalPrice.wsp = computed(() => {
     const t =
-    parseInt(buildQuote.machine.wsp) +
+        parseInt(buildQuote.machine.wsp) +
         parseInt(buildQuote.waterOption.wsp) +
         parseInt(buildQuote.warranty.wsp) +
         parseInt(buildQuote.cardMachine.wsp) +
@@ -1104,8 +1240,7 @@ buildQuote.finalPrice.wsp = computed(() => {
         parseInt(buildQuote.drinkPack.wsp) +
         parseInt(buildQuote.discount.wsp) +
         parseInt(buildQuote.additions.wsp) +
-        parseInt(buildQuote.financeFee.wsp) +
-        parseInt(buildQuote.finance.wsp)
+        parseInt(buildQuote.financeFee.wsp)
     return t
 })
 

@@ -1,8 +1,13 @@
 <template>
 
     <AddEditItemOption
+        v-model:parent="newItemOption.parent"
+        v-model:chlid="newItemOption.chlid"
         v-model:item="newItemOption.item"
         v-model:option="newItemOption.option"
+        v-model:wsp="newItemOption.wsp"
+        v-model:rrp="newItemOption.rrp"
+        v-model:longDescription="newItemOption.longDescription"
         ref="addEditItemOptionRef"
     >
         <template #buttons>
@@ -35,8 +40,13 @@
 
 
     const newItemOption = reactive({
+        parent: '',
+        chlid: '',
         item: '',
-        option: ''
+        option: '',
+        wsp: '',
+        rrp: '',
+        longDescription: ''
     })
     const addEditItemOptionRef = ref(null)
     const storeItemOptions = useStoreItemOptions()
