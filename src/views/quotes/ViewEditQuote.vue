@@ -184,11 +184,17 @@
 <div class="text-green-800 font-semibold">
     <select
         v-model="buildQuote.cardMachine.package"
-        label="Card Machine"
-        :options="catalogue"
-        :text-by="(catalogue)=>catalogue.field.description"
-        :value-by="(catalogue)=>catalogue.id"
-    />
+        name="cardMachine"
+        id="cardMachine"
+        @change="dropDownChanged($event)"
+    >
+        <option
+            v-for="item in storeItemOptions.getItemOptionsByItem('cardMachine')"
+            :value="item"
+        >
+            {{ item }}
+        </option>
+    </select>
 </div>
 
 <div class="text-green-800 font-semibold">
@@ -213,11 +219,17 @@
 <div class="text-green-800 font-semibold">
     <select
         v-model="buildQuote.marketing.package"
-        label="Marketing Pack"
-        :options="options"
-        :text-by="(catalogue)=>catalogue.field.description"
-        :value-by="(catalogue)=>catalogue.id"
-    />
+        name="marketing"
+        id="marketing"
+        @change="dropDownChanged($event)"
+    >
+        <option
+            v-for="item in storeItemOptions.getItemOptionsByItem('marketing')"
+            :value="item"
+        >
+            {{ item }}
+        </option>
+    </select>
 </div>
 
 <div class="text-green-800 font-semibold">
@@ -277,11 +289,17 @@
 <div class="text-green-800 font-semibold">
     <select
         v-model="buildQuote.drinkPack.package"
-        label="Drink Pack"
-        :options="options"
-        :text-by="(catalogue)=>catalogue.field.description"
-        :value-by="(catalogue)=>catalogue.id"
-    />
+        name="drinkPack"
+        id="drinkPack"
+        @change="dropDownChanged($event)"
+    >
+        <option
+            v-for="item in storeItemOptions.getItemOptionsByItem('drinkPack')"
+            :value="item"
+        >
+            {{ item }}
+        </option>
+    </select>
 </div>
 
 <div class="text-green-800 font-semibold">
@@ -865,6 +883,7 @@ function dropDownChanged($event) {
     console.log('event', $event.srcElement.id)// need the parent id
     console.log('event', $event.target.value) // option selected
     buildQuote[$event.srcElement.id].rrp = storeItemOptions.getItemFieldByItemAndOption('rrp', $event.srcElement.id, $event.target.value)
+    buildQuote[$event.srcElement.id].wsp = storeItemOptions.getItemFieldByItemAndOption('wsp', $event.srcElement.id, $event.target.value)
 }
 
 // USE THIS INSTEAD storeCatalogue.getCatalogueOptions(option)

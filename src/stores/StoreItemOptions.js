@@ -39,6 +39,7 @@ export const useStoreItemOptions = defineStore('storeItemOptions', {
                 item: doc.data().item,
                 option: doc.data().option,
                 rrp: doc.data().rrp,
+                wsp: doc.data().wsp,
                 date: doc.data().date
             }
             itemOptions.push(itemOption)
@@ -59,6 +60,7 @@ console.log('trying to add new itemOption', newItemOption)
             item: newItemOption.item,
             option: newItemOption.option,
             rrp: newItemOption.rrp,
+            wsp: newItemOption.wsp,
             date: date
         });
 
@@ -75,6 +77,7 @@ console.log('trying to add new itemOption', newItemOption)
             item: itemOption.item,
             option: itemOption.option,
             rrp: itemOption.rrp,
+            wsp: itemOption.wsp,
             edited: 'true'
           });
         //   if the field dont exist it wont be added
