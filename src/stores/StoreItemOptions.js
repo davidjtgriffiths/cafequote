@@ -144,6 +144,7 @@ console.log('trying to add new itemOption', newItemOption)
                 //     console.log('loop ', item, list[item])
                 //     options.push(list[item]['option'])
                 // }
+                console.log(' xxxxxxxxxxxxxxxxxxxxxxxxx value, field', value[0], field)
                 console.log(' xxxxxxxxxxxxxxxxxxxxxxxxx value', value[0][field])
             return value[0][field]
         }

@@ -22,10 +22,10 @@
             </div>
             <div class="control">
                 <textarea
-                    :value="chlid"
-                    @input="$emit('update:chlid', $event.target.value)"
+                    :value="child"
+                    @input="$emit('update:child', $event.target.value)"
                     class="textarea mt-4"
-                    placeholder="Chlid"
+                    placeholder="Child"
                     ref="textareaRef"
                 >
                 </textarea>
@@ -102,7 +102,7 @@
             type: String,
             required: true
         },
-        chlid: {
+        child: {
             type: String,
             required: true
         },
@@ -133,7 +133,7 @@
 
     const emit = defineEmits([
         'update:parent',
-        'update:chlid',
+        'update:child',
         'update:item',
         'update:option',
         'update:wsp',

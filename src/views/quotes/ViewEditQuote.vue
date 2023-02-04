@@ -1125,26 +1125,30 @@ buildQuote.finalPrice.net = computed(() => {
     return parseInt(buildQuote.finalPrice.rrp) - parseInt(buildQuote.finalPrice.wsp)
 })
 // TODO: Repeat for T2 & 3 once ive calculated total cost of finance from here .....
-// buildQuote.financeBreakdownT1.monthly = computed(() => { //TODO: This is bollocks!
-//     return parseInt(buildQuote.finalPrice.rrp) * parseInt(storeItemOptions.getItemFieldByItemAndOption('wsp', 'finance', buildQuote.finance.wsp)) / 12 / parseInt(buildQuote.finance.term)
-// })
+buildQuote.financeBreakdownT1.monthly = computed(() => { //TODO: This is bollocks!
+    if (buildQuote.finance.description) {
+        console.log('rate',storeItemOptions.getItemFieldByItemAndOption('rrp', 'finance', buildQuote.finance.description))
+        return parseInt(buildQuote.finalPrice.rrp) / 1000 * parseInt(storeItemOptions.getItemFieldByItemAndOption('rrp', 'finance', buildQuote.finance.description))
+    }
+    return ""
+    })
 buildQuote.financeBreakdownT1.weekly = computed(() => {
-    return parseInt(buildQuote.finalPrice.rrp) / 52 / parseInt(buildQuote.finance.term)
+    if (buildQuote.financeBreakdownT1.monthly != "") return parseInt(buildQuote.financeBreakdownT1.monthly) * 12 / 52
 })
 buildQuote.financeBreakdownT1.weeklyCups = computed(() => {
-    return parseInt(buildQuote.financeBreakdownT1.weekly) / parseInt(storeSysVars.getSysVarByName('rrpPerCup').val)
+    if (buildQuote.financeBreakdownT1.monthly != "") return parseInt(buildQuote.financeBreakdownT1.weekly) / parseInt(storeSysVars.getSysVarByName('rrpPerCup').val)
 })
 buildQuote.financeBreakdownT1.daily7 = computed(() => {
-    return parseInt(buildQuote.finalPrice.rrp) / 52 / 7 / parseInt(buildQuote.finance.term)
+    if (buildQuote.financeBreakdownT1.monthly != "") return parseInt(buildQuote.financeBreakdownT1.weekly) / 7
 })
 buildQuote.financeBreakdownT1.daily7Cups = computed(() => {
-    return parseInt(buildQuote.financeBreakdownT1.daily7) / parseInt(storeSysVars.getSysVarByName('rrpPerCup').val)
+    if (buildQuote.financeBreakdownT1.monthly != "") return parseInt(buildQuote.financeBreakdownT1.weekly) / 7 / parseInt(storeSysVars.getSysVarByName('rrpPerCup').val)
 })
 buildQuote.financeBreakdownT1.daily5 = computed(() => {
-    return parseInt(buildQuote.finalPrice.rrp) / 52 / 5 / parseInt(buildQuote.finance.term)
+    if (buildQuote.financeBreakdownT1.monthly != "") return parseInt(buildQuote.financeBreakdownT1.weekly) / 5
 })
 buildQuote.financeBreakdownT1.daily5Cups = computed(() => {
-    return parseInt(buildQuote.financeBreakdownT1.daily5) / parseInt(storeSysVars.getSysVarByName('rrpPerCup').val)
+    if (buildQuote.financeBreakdownT1.monthly != "") return parseInt(buildQuote.financeBreakdownT1.weekly) / 5 / parseInt(storeSysVars.getSysVarByName('rrpPerCup').val)
 })
 // TODO: ....to here
 buildQuote.commission.providedLead = computed(() => {
