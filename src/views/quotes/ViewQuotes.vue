@@ -32,6 +32,7 @@
     import Quote from '@/components/Quotes/Quote.vue'
     import AddEditQuote from '@/components/Quotes/AddEditQuote.vue'
     import { useStoreQuotes } from '@/stores/StoreQuotes'
+    import { quoteFields } from '@/js/quoteFields'
 
     const route = useRoute()
     const router = useRouter()

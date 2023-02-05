@@ -4,6 +4,8 @@ import { db } from '@/js/firebase.js'
 import { query, orderBy, limit } from "firebase/firestore";
 import { useStoreAuth } from '@/stores/StoreAuth.js'
 
+import { quoteFields } from '@/js/quoteFields'
+
 let quotesCollectionRef
 let quotesCollectionQuery
 
@@ -37,6 +39,7 @@ export const useStoreQuotes = defineStore('storeQuotes', {
                 firstField: doc.data().firstField,
                 secondField: doc.data().secondField,
                 date: doc.data().date,
+                quoteFields,
                 leadId: doc.data().leadId
             }
             quotes.push(quote)
@@ -50,10 +53,11 @@ export const useStoreQuotes = defineStore('storeQuotes', {
     },
     async addQuote(newQuote, leadId) {
         let date = new Date().getTime().toString()
-console.log('addDoc in addQuote', )
+
         await addDoc(quotesCollectionRef, {
             firstField: newQuote ? newQuote.firstField : 'blank',
             secondField: newQuote ? newQuote.secondField : 'blank2',
+            quoteFields,
             date: date,
             leadId: leadId ? leadId : null
         });
@@ -68,6 +72,7 @@ console.log('addDoc in addQuote', )
         await updateDoc(doc(quotesCollectionRef, id), {
             firstField: quote.firstField,
             secondField: quote.secondField,
+            quoteFields,
             edited: 'true'
           });
         //   if the field dont exist it wont be added
