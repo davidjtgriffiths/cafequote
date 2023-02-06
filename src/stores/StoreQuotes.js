@@ -43,6 +43,7 @@ export const useStoreQuotes = defineStore('storeQuotes', {
                 leadId: doc.data().leadId
             }
             quotes.push(quote)
+            console.log('getting quote', quote)
         })
         this.quotes = quotes
     }, error => { console.log(error.message)

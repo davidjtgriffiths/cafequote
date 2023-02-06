@@ -868,63 +868,45 @@ function dropDownChanged($event) {
     quote.quoteFields[$event.srcElement.id].rrp = storeItemOptions.getItemFieldByItemAndOption('rrp', $event.srcElement.id, $event.target.value)
     quote.quoteFields[$event.srcElement.id].wsp = storeItemOptions.getItemFieldByItemAndOption('wsp', $event.srcElement.id, $event.target.value)
 
+    quote.quoteFields.machine.net = parseInt(quote.quoteFields.machine.rrp) - parseInt(quote.quoteFields.machine.wsp)
+    
 
-quote.quoteFields.machine.net = computed(() => {
-    return parseInt(quote.quoteFields.machine.rrp) - parseInt(quote.quoteFields.machine.wsp)
-})
-quote.quoteFields.waterOption.net = computed(() => {
-    return parseInt(quote.quoteFields.waterOption.rrp) - parseInt(quote.quoteFields.waterOption.wsp)
-})
-quote.quoteFields.warranty.net = computed(() => {
-    return parseInt(quote.quoteFields.warranty.rrp) - parseInt(quote.quoteFields.warranty.wsp)
-})
-quote.quoteFields.cardMachine.net = computed(() => {
-    return parseInt(quote.quoteFields.cardMachine.rrp) - parseInt(quote.quoteFields.cardMachine.wsp)
-})
-quote.quoteFields.marketing.net = computed(() => {
-    return parseInt(quote.quoteFields.marketing.rrp) - parseInt(quote.quoteFields.marketing.wsp)
-})
-quote.quoteFields.merchandising.net = computed(() => {
-    return parseInt(quote.quoteFields.merchandising.rrp) - parseInt(quote.quoteFields.merchandising.wsp)
-})
-quote.quoteFields.drinkPack.net = computed(() => {
-    return parseInt(quote.quoteFields.drinkPack.rrp) - parseInt(quote.quoteFields.drinkPack.wsp)
-})
-quote.quoteFields.subTotal.net = computed(() => {
-    return parseInt(quote.quoteFields.subTotal.rrp) - parseInt(quote.quoteFields.subTotal.wsp)
-})
-quote.quoteFields.discount.rrp = computed(() => {
-    return parseInt( - quote.quoteFields.subTotal.rrp) * parseInt(quote.quoteFields.discount.description) / 100
-})
-quote.quoteFields.discount.net = computed(() => {
-    return parseInt(quote.quoteFields.discount.rrp)
-})
-quote.quoteFields.additions.net = computed(() => {
-    return parseInt(quote.quoteFields.additions.rrp) - parseInt(quote.quoteFields.additions.wsp)
-})
-quote.quoteFields.total.net = computed(() => {
-    return parseInt(quote.quoteFields.total.rrp) - parseInt(quote.quoteFields.total.wsp)
-})
-quote.quoteFields.finance.net = computed(() => {
-    return parseInt(quote.quoteFields.finance.rrp) - parseInt(quote.quoteFields.finance.wsp)
-})
-quote.quoteFields.financeFee.rrp = computed(() => {
-    return parseInt(quote.quoteFields.financeFee.description ? quote.quoteFields.financeFee.description : 0)
-})
-quote.quoteFields.financeFee.net = computed(() => {
-    return parseInt(quote.quoteFields.financeFee.rrp) - parseInt(quote.quoteFields.financeFee.wsp)
-})
-quote.quoteFields.finalPrice.net = computed(() => {
-    return parseInt(quote.quoteFields.finalPrice.rrp) - parseInt(quote.quoteFields.finalPrice.wsp)
-})
+quote.quoteFields.waterOption.net = parseInt(quote.quoteFields.waterOption.rrp) - parseInt(quote.quoteFields.waterOption.wsp)
+
+quote.quoteFields.warranty.net = parseInt(quote.quoteFields.warranty.rrp) - parseInt(quote.quoteFields.warranty.wsp)
+
+quote.quoteFields.cardMachine.net = parseInt(quote.quoteFields.cardMachine.rrp) - parseInt(quote.quoteFields.cardMachine.wsp)
+
+quote.quoteFields.marketing.net = parseInt(quote.quoteFields.marketing.rrp) - parseInt(quote.quoteFields.marketing.wsp)
+
+quote.quoteFields.merchandising.net = parseInt(quote.quoteFields.merchandising.rrp) - parseInt(quote.quoteFields.merchandising.wsp)
+
+quote.quoteFields.drinkPack.net = parseInt(quote.quoteFields.drinkPack.rrp) - parseInt(quote.quoteFields.drinkPack.wsp)
+
+quote.quoteFields.subTotal.net == arseInt(quote.quoteFields.subTotal.rrp) - parseInt(quote.quoteFields.subTotal.wsp)
+
+quote.quoteFields.discount.rrp = parseInt( - quote.quoteFields.subTotal.rrp) * parseInt(quote.quoteFields.discount.description) / 100
+
+quote.quoteFields.discount.net = parseInt(quote.quoteFields.discount.rrp)
+
+quote.quoteFields.additions.net = parseInt(quote.quoteFields.additions.rrp) - parseInt(quote.quoteFields.additions.wsp)
+
+quote.quoteFields.total.net = parseInt(quote.quoteFields.total.rrp) - parseInt(quote.quoteFields.total.wsp)
+
+quote.quoteFields.finance.net = parseInt(quote.quoteFields.finance.rrp) - parseInt(quote.quoteFields.finance.wsp)
+
+quote.quoteFields.financeFee.rrp = parseInt(quote.quoteFields.financeFee.description ? quote.quoteFields.financeFee.description : 0)
+
+quote.quoteFields.financeFee.net = parseInt(quote.quoteFields.financeFee.rrp) - parseInt(quote.quoteFields.financeFee.wsp)
+
+quote.quoteFields.finalPrice.net = parseInt(quote.quoteFields.finalPrice.rrp) - parseInt(quote.quoteFields.finalPrice.wsp)
+
 // TODO: Repeat for T2 & 3 once ive calculated total cost of finance from here .....
-quote.quoteFields.financeBreakdownT1.monthly = computed(() => { //TODO: This is bollocks!
-    if (quote.quoteFields.finance.description) {
-        console.log('rate',storeItemOptions.getItemFieldByItemAndOption('rrp', 'finance', quote.quoteFields.finance.description))
-        return parseInt(quote.quoteFields.finalPrice.rrp) / 1000 * parseInt(storeItemOptions.getItemFieldByItemAndOption('rrp', 'finance', quote.quoteFields.finance.description))
-    }
-    return ""
-    })
+quote.quoteFields.financeBreakdownT1.monthly = 
+    quote.quoteFields.finance.description ?
+    parseInt(quote.quoteFields.finalPrice.rrp) / 1000 * parseInt(storeItemOptions.getItemFieldByItemAndOption('rrp', 'finance', quote.quoteFields.finance.description)) :
+    ""
+
 quote.quoteFields.financeBreakdownT1.weekly = computed(() => {
     if (quote.quoteFields.financeBreakdownT1.monthly != "") return parseInt(quote.quoteFields.financeBreakdownT1.monthly) * 12 / 52
 })
@@ -944,6 +926,7 @@ quote.quoteFields.financeBreakdownT1.daily5Cups = computed(() => {
     if (quote.quoteFields.financeBreakdownT1.monthly != "") return parseInt(quote.quoteFields.financeBreakdownT1.weekly) / 5 / parseInt(storeSysVars.getSysVarByName('rrpPerCup').val)
 })
 // TODO: ....to here
+
 quote.quoteFields.commission.providedLead = computed(() => {
     return parseInt(quote.quoteFields.finalPrice.rrp) / 100 * 50
 })
