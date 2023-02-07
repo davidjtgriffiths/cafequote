@@ -39,7 +39,7 @@ export const useStoreQuotes = defineStore('storeQuotes', {
                 firstField: doc.data().firstField,
                 secondField: doc.data().secondField,
                 date: doc.data().date,
-                quoteFields,
+                quoteFields: doc.data().quoteFields,
                 leadId: doc.data().leadId
             }
             quotes.push(quote)

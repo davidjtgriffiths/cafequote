@@ -14,9 +14,15 @@
             </button>
             <button
                 @click="handleSavedClicked"
-                class="button is-link has-background-link"
+                class="button is-link has-background-link mr-2"
             >
                 Save Changes
+            </button>
+            <button
+                @click="$router.push(`/previewContract/${ quote.id }`)"
+                class="button is-link has-background-link"
+            >
+                Show Agreement {{  quote.id }}
             </button>
         </template>
     </AddEditQuote>
@@ -834,6 +840,7 @@ import { defineComponent } from 'vue';
 
     // let quote = ref({})
     let quote = {}
+    const storeLeads = useStoreLeads()
     const storeQuotes = useStoreQuotes()
     const storeCatalogue = useStoreCatalogue()
     const storeItemOptions = useStoreItemOptions()
@@ -843,12 +850,16 @@ import { defineComponent } from 'vue';
 
     let test = ref()
     let options = storeCatalogue.getCatalogue('merchandising')
-
+    let lead = ref()
 
     quote = {
         quoteFields
     }
     quote = storeQuotes.getQuote(route.params.id)
+    lead = storeLeads.getLead(quote.leadId)
+    quote.quoteFields = storeQuotes.getQuote(route.params.id).quoteFields
+    console.log('quote back to view edit', quote)
+    console.log('quotefields', storeQuotes.getQuote(route.params.id).quoteFields)
 
 
     const handleSavedClicked = () => {
@@ -888,11 +899,11 @@ quote.quoteFields.drinkPack.net = parseInt(quote.quoteFields.drinkPack.rrp) - pa
 quote.quoteFields.subTotal.net == parseInt(quote.quoteFields.subTotal.rrp) - parseInt(quote.quoteFields.subTotal.wsp)
 
 quote.quoteFields.discount.rrp = parseInt( - quote.quoteFields.subTotal.rrp) * parseInt(quote.quoteFields.discount.description) / 100
+console.log('additions ',parseInt(quote.quoteFields.discount.rrp) - parseInt(quote.quoteFields.additions.wsp))
 
 quote.quoteFields.discount.net = parseInt(quote.quoteFields.discount.rrp)
 
 quote.quoteFields.additions.net = parseInt(quote.quoteFields.additions.rrp) - parseInt(quote.quoteFields.additions.wsp)
-console.log('additions ',parseInt(quote.quoteFields.additions.rrp) - parseInt(quote.quoteFields.additions.wsp))
 quote.quoteFields.total.net = parseInt(quote.quoteFields.total.rrp) - parseInt(quote.quoteFields.total.wsp)
 
 quote.quoteFields.finance.net = parseInt(quote.quoteFields.finance.rrp) - parseInt(quote.quoteFields.finance.wsp)
