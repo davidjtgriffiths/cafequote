@@ -104,7 +104,7 @@ console.log('trying to add new itemOption', newItemOption)
             let options = []
             let list = state.itemOptions.filter(itemOption => { return itemOption.item === item })
             for (item in list) {
-                console.log('loop ', item, list[item])
+                // console.log('loop ', item, list[item])
                 options.push(list[item]['option'])
             }
             return options
@@ -116,7 +116,7 @@ console.log('trying to add new itemOption', newItemOption)
             let options = []
             let list = state.itemOptions.filter(itemOption => { return itemOption.parent === parent && itemOption.item === item })
             for (item in list) {
-                console.log('loop ', item, list[item])
+                // console.log('loop ', item, list[item])
                 options.push(list[item]['option'])
             }
             return options
@@ -124,11 +124,11 @@ console.log('trying to add new itemOption', newItemOption)
     },
     getItemOptionsByChildAndItem: (state) => {
         return (child, item) => {
-            console.log('looking for item ' + child +' '+ item)
+            // console.log('looking for item ' + child +' '+ item)
             let options = []
             let list = state.itemOptions.filter(itemOption => { return itemOption.child === child && itemOption.item === item })
             for (item in list) {
-                console.log('loop ', item, list[item])
+                // console.log('loop ', item, list[item])
                 options.push(list[item]['option'])
             }
             return options
@@ -136,7 +136,7 @@ console.log('trying to add new itemOption', newItemOption)
     },
     getItemFieldByItemAndOption: (state) => {
         return (field, item, option) => {
-            console.log('looking for field, item, option ', field, item, option)
+            // console.log('looking for field, item, option ', field, item, option)
 
 
             let value = state.itemOptions.filter(itemOption => { return itemOption.item === item && itemOption.option === option })
@@ -144,14 +144,14 @@ console.log('trying to add new itemOption', newItemOption)
                 //     console.log('loop ', item, list[item])
                 //     options.push(list[item]['option'])
                 // }
-                console.log(' xxxxxxxxxxxxxxxxxxxxxxxxx value, field', value[0], field)
-                console.log(' xxxxxxxxxxxxxxxxxxxxxxxxx value', value[0][field])
+                // console.log(' xxxxxxxxxxxxxxxxxxxxxxxxx value, field', value[0], field)
+                // console.log(' xxxxxxxxxxxxxxxxxxxxxxxxx value', value[0][field])
             return value[0][field]
         }
     },
     getItemFieldByParentItemAndOption: (state) => {
         return (field, parent, item, option) => {
-            console.log('looking for field, item, option ', field, item, option)
+            // console.log('looking for field, item, option ', field, item, option)
 
 
             let value = state.itemOptions.filter(itemOption => { return itemOption.parent === parent && itemOption.item === item && itemOption.option === option })
@@ -159,13 +159,13 @@ console.log('trying to add new itemOption', newItemOption)
                 //     console.log('loop ', item, list[item])
                 //     options.push(list[item]['option'])
                 // }
-                console.log(' xxxxxxxxxxxxxxxxxxxxxxxxx value', value[0][field])
+                // console.log(' xxxxxxxxxxxxxxxxxxxxxxxxx value', value[0][field])
             return value[0][field]
         }
     },
     getItemFieldByChildItemAndOption: (state) => {
         return (field, child, item, option) => {
-            console.log('looking for field, item, option ', field, item, option)
+            // console.log('looking for field, item, option ', field, item, option)
 
 
             let value = state.itemOptions.filter(itemOption => { return itemOption.child === child && itemOption.item === item && itemOption.option === option })
@@ -173,7 +173,7 @@ console.log('trying to add new itemOption', newItemOption)
                 //     console.log('loop ', item, list[item])
                 //     options.push(list[item]['option'])
                 // }
-                console.log(' xxxxxxxxxxxxxxxxxxxxxxxxx value', value[0][field])
+                // console.log(' xxxxxxxxxxxxxxxxxxxxxxxxx value', value[0][field])
             return value[0][field]
         }
     }

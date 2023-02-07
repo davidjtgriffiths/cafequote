@@ -402,7 +402,7 @@
 
 <!-- Start Row -->
 <div class="text-green-800 font-semibold">
-    <input v-model="quote.quoteFields.additions.rrp" label="Additions" />
+    <input @change="dropDownChanged($event)" v-model="quote.quoteFields.additions.rrp" label="Additions" />
 </div>
 
 <div class="text-green-800 font-semibold">
@@ -424,7 +424,7 @@
 
 <!-- Start Row -->
 <div class="text-green-800 font-semibold">
-    <input v-model="quote.quoteFields.discount.description" label="Discount %" />
+    <input @change="dropDownChanged($event)" v-model="quote.quoteFields.discount.description" label="Discount %" />
 </div>
 
 <div class="text-green-800 font-semibold">
@@ -440,7 +440,7 @@
 </div>
 
 <div class="net">
-    <input readonly v-model="quote.quoteFields.discount.net" />
+    <input v-model="quote.quoteFields.discount.net" />
 </div>
 <!-- End Row -->
 
@@ -865,11 +865,13 @@ const model = ref()
 const plumbing = ref()
 
 function dropDownChanged($event) {
+    console.log('the dropdown changed event', $event.target.nodeName)
+    if ( $event.target.nodeName == 'SELECT' ) {
     quote.quoteFields[$event.srcElement.id].rrp = storeItemOptions.getItemFieldByItemAndOption('rrp', $event.srcElement.id, $event.target.value)
     quote.quoteFields[$event.srcElement.id].wsp = storeItemOptions.getItemFieldByItemAndOption('wsp', $event.srcElement.id, $event.target.value)
-
+    }
     quote.quoteFields.machine.net = parseInt(quote.quoteFields.machine.rrp) - parseInt(quote.quoteFields.machine.wsp)
-    
+
 
 quote.quoteFields.waterOption.net = parseInt(quote.quoteFields.waterOption.rrp) - parseInt(quote.quoteFields.waterOption.wsp)
 
@@ -890,7 +892,7 @@ quote.quoteFields.discount.rrp = parseInt( - quote.quoteFields.subTotal.rrp) * p
 quote.quoteFields.discount.net = parseInt(quote.quoteFields.discount.rrp)
 
 quote.quoteFields.additions.net = parseInt(quote.quoteFields.additions.rrp) - parseInt(quote.quoteFields.additions.wsp)
-
+console.log('additions ',parseInt(quote.quoteFields.additions.rrp) - parseInt(quote.quoteFields.additions.wsp))
 quote.quoteFields.total.net = parseInt(quote.quoteFields.total.rrp) - parseInt(quote.quoteFields.total.wsp)
 
 quote.quoteFields.finance.net = parseInt(quote.quoteFields.finance.rrp) - parseInt(quote.quoteFields.finance.wsp)
@@ -902,7 +904,7 @@ quote.quoteFields.financeFee.net = parseInt(quote.quoteFields.financeFee.rrp) - 
 quote.quoteFields.finalPrice.net = parseInt(quote.quoteFields.finalPrice.rrp) - parseInt(quote.quoteFields.finalPrice.wsp)
 
 // TODO: Repeat for T2 & 3 once ive calculated total cost of finance from here .....
-quote.quoteFields.financeBreakdownT1.monthly = 
+quote.quoteFields.financeBreakdownT1.monthly =
     quote.quoteFields.finance.description ?
     parseInt(quote.quoteFields.finalPrice.rrp) / 1000 * parseInt(storeItemOptions.getItemFieldByItemAndOption('rrp', 'finance', quote.quoteFields.finance.description)) :
     ""
@@ -921,7 +923,7 @@ quote.quoteFields.commission.providedLead = parseInt(quote.quoteFields.finalPric
 quote.quoteFields.commission.selfGenerated = parseInt(quote.quoteFields.finalPrice.rrp) / 100 * 75
 
 // TODO: Put actual lead source in here
-quote.quoteFields.commission.percentageOfDeal = 
+quote.quoteFields.commission.percentageOfDeal =
         parseInt(quote.quoteFields.finalPrice.rrp) ?
         parseInt(quote.quoteFields.commission.selfGenerated) / parseInt(quote.quoteFields.finalPrice.rrp) * 100 :
         0
