@@ -37,14 +37,15 @@
             </button>
         </div>
 
-
+<div id="pdf">
             <h1>Ok heres the fucking quote!</h1>
 <p>{{ quote }}</p>
 <p>
 
 </p>
-    <div> test the fucking long description{{storeItemOptions.getItemFieldByItemAndOption('longDescription', 'machine', 'VISTA GAIA EASY')}}</div>
-    </template>
+    <!-- <div> test the fucking long description{{storeItemOptions.getItemFieldByItemAndOption('longDescription', 'machine', 'VISTA GAIA EASY')}}</div> -->
+</div>    
+</template>
 
 <script setup>
     import { normalizeStyle, ref, reactive, computed, watch, onMounted } from 'vue'
@@ -59,6 +60,7 @@
 
 
 import { defineComponent } from 'vue';
+import html2pdf from "html2pdf.js"
 
     const route = useRoute()
     const router = useRouter()
@@ -79,7 +81,10 @@ import { defineComponent } from 'vue';
 
     const makePdf = () => {
         console.log('make a fucking pdf init?')
-
+        html2pdf(document.getElementById("pdf"), {
+				margin: 1,
+  			filename: "i-was-html.pdf",
+			});
     }
 
     const howMuch = () => {
