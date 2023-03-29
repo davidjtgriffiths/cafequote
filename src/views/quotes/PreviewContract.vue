@@ -43,8 +43,8 @@
 <p>
 
 </p>
-    <!-- <div> test the fucking long description{{storeItemOptions.getItemFieldByItemAndOption('longDescription', 'machine', 'VISTA GAIA EASY')}}</div> -->
-</div>    
+    <div> test the fucking long description{{storeItemOptions.getItemFieldByItemAndOption('longDescription', 'machine', 'VISTA GAIA EASY')}}</div>
+</div>
 </template>
 
 <script setup>

@@ -112,13 +112,14 @@ console.log('trying to add new itemOption', newItemOption)
     },
     getItemOptionsByParentAndItem: (state) => {
         return (parent, item) => {
-            console.log('looking for item ' + parent +' '+ item)
+            console.log('looking for item w/parent' + parent +' '+ item)
             let options = []
             let list = state.itemOptions.filter(itemOption => { return itemOption.parent === parent && itemOption.item === item })
             for (item in list) {
-                // console.log('loop ', item, list[item])
+                console.log('loop ', item, list[item])
                 options.push(list[item]['option'])
             }
+            console.log('found for item w/parent' + parent +' '+ item +' = ' + options)
             return options
         }
     },

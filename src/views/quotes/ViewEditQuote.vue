@@ -151,7 +151,7 @@
         @change="dropDownChanged($event)"
     >
         <option
-            v-for="item in storeItemOptions.getItemOptionsByItem('warranty')"
+            v-for="item in storeItemOptions.getItemOptionsByParentAndItem(quote.quoteFields.machine.description, 'warranty')"
             :value="item"
         >
             {{ item }}
@@ -160,7 +160,7 @@
 </div>
 
 <div class="text-green-800 font-semibold">
-
+    {{storeItemOptions.getItemOptionsByParentAndItem(quote.quoteFields.machine.description, 'warranty')}}
 </div>
 
 <div>
@@ -824,13 +824,16 @@
     import { useStoreCatalogue } from '@/stores/StoreCatalogue'
     import { normalizeStyle, ref, reactive, computed, watch, onMounted } from 'vue'
 
-    import Quote from '@/components/Quotes/Quote.vue'
 
+    import Quote from '@/components/Quotes/Quote.vue'
 
     import { useStoreLeads } from '@/stores/StoreLeads'
     import { useStoreSysVars } from '@/stores/StoreSysVars'
     import { useStoreItemOptions } from '@/stores/StoreItemOptions'
     import { quoteFields } from '@/js/quoteFields'
+
+    import { getCurrentInstance } from 'vue';
+
 
 
 
@@ -870,10 +873,11 @@ import { defineComponent } from 'vue';
         router.back()
     }
 
+
 const value = ref()
 const brand = ref()
 const model = ref()
-const plumbing = ref()
+const warrantyKey = ref(0)
 
 function dropDownChanged($event) {
     console.log('the dropdown changed event', $event.target.nodeName)
@@ -881,8 +885,8 @@ function dropDownChanged($event) {
     quote.quoteFields[$event.srcElement.id].rrp = storeItemOptions.getItemFieldByItemAndOption('rrp', $event.srcElement.id, $event.target.value)
     quote.quoteFields[$event.srcElement.id].wsp = storeItemOptions.getItemFieldByItemAndOption('wsp', $event.srcElement.id, $event.target.value)
     }
-    quote.quoteFields.machine.net = parseInt(quote.quoteFields.machine.rrp) - parseInt(quote.quoteFields.machine.wsp)
 
+quote.quoteFields.machine.net = parseInt(quote.quoteFields.machine.rrp) - parseInt(quote.quoteFields.machine.wsp)
 
 quote.quoteFields.waterOption.net = parseInt(quote.quoteFields.waterOption.rrp) - parseInt(quote.quoteFields.waterOption.wsp)
 
