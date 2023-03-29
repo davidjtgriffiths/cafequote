@@ -160,7 +160,7 @@
 </div>
 
 <div class="text-green-800 font-semibold">
-    {{storeItemOptions.getItemOptionsByParentAndItem(quote.quoteFields.machine.description, 'warranty')}}
+
 </div>
 
 <div>
